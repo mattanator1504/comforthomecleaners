@@ -5,6 +5,7 @@ import { site, orgSchema, websiteSchema } from "@/lib/site";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import JsonLd from "@/components/JsonLd";
+import Motion from "@/components/Motion";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -43,6 +44,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         </main>
         <Footer />
         <JsonLd data={[orgSchema, websiteSchema]} />
+        <Motion />
       </body>
     </html>
   );

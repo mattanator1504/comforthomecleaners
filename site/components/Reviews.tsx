@@ -13,7 +13,7 @@ const initials = (n: string) =>
 
 export function ReviewCard({ r, large = false }: { r: Review; large?: boolean }) {
   return (
-    <figure className={`glass break-inside-avoid rounded-[28px] ${large ? "p-8 sm:p-10" : "p-6 sm:p-7"}`}>
+    <figure data-spotlight className={`glass break-inside-avoid rounded-[28px] ${large ? "p-8 sm:p-10" : "p-6 sm:p-7"}`}>
       <div className="flex items-center justify-between">
         <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-aqua-deep">{r.topic}</span>
         <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-slate">Recommends</span>
@@ -40,10 +40,12 @@ export default function ReviewWall({ limit }: { limit?: number }) {
   const list = limit ? rest.slice(0, limit - 1) : rest;
   return (
     <div className="grid gap-4 lg:grid-cols-[0.9fr_2fr]">
-      <div className="flex flex-col gap-4">
+      <div data-stagger className="flex flex-col gap-4">
         <div className="relative overflow-hidden rounded-[28px] bg-night p-8 text-white">
           <div className="pointer-events-none absolute -right-16 -top-16 h-56 w-56 rounded-full bg-aqua/40 blur-3xl" />
-          <p className="relative text-[88px] font-semibold leading-none tracking-[-0.06em] text-glow">{reviewStats.recommend}</p>
+          <p className="relative text-[88px] font-semibold leading-none tracking-[-0.06em] text-glow" data-count="100" data-suffix="%">
+            {reviewStats.recommend}
+          </p>
           <p className="relative mt-3 text-[17px] text-white/80">
             of {reviewStats.count} Facebook reviewers recommend {site.name}.
           </p>
@@ -59,7 +61,7 @@ export default function ReviewWall({ limit }: { limit?: number }) {
         </div>
         <ReviewCard r={first} />
       </div>
-      <div className="gap-4 sm:columns-2 [&>*]:mb-4">
+      <div data-stagger className="gap-4 sm:columns-2 [&>*]:mb-4">
         {list.map((r) => (
           <ReviewCard key={r.id} r={r} />
         ))}

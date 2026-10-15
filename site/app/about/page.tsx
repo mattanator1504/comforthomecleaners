@@ -46,10 +46,10 @@ export default function AboutPage() {
 
       <section aria-labelledby="how-we-work" className="px-4 py-16 sm:px-6 sm:py-24">
         <div className="mx-auto grid max-w-6xl gap-12 lg:grid-cols-[1.1fr_1fr] lg:items-center">
-          <div className="overflow-hidden rounded-[36px] ring-1 ring-ink/5">
+          <div data-reveal className="overflow-hidden rounded-[36px] ring-1 ring-ink/5">
             <img src="/images/kitchen.webp" width={1600} height={959} alt="Spotless white kitchen with a marble island" loading="lazy" className="h-full w-full object-cover" />
           </div>
-          <div>
+          <div data-reveal>
             <h2 id="how-we-work" className="text-balance text-4xl font-semibold leading-[1.02] tracking-[-0.035em] sm:text-5xl">
               Owner-operated means the owner answers for it.
             </h2>
@@ -71,9 +71,9 @@ export default function AboutPage() {
           <h2 id="values" className="max-w-2xl text-balance text-4xl font-semibold leading-[1.02] tracking-[-0.035em] sm:text-5xl">
             What every visit includes.
           </h2>
-          <div className="mt-12 grid gap-4 md:grid-cols-2">
+          <div data-stagger className="mt-12 grid gap-4 md:grid-cols-2">
             {values.map((v) => (
-              <div key={v.title} className="glass rounded-[28px] p-7 sm:p-9">
+              <div key={v.title} data-spotlight className="glass rounded-[28px] p-7 sm:p-9">
                 <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-ink text-glow">{v.icon}</span>
                 <h3 className="mt-6 text-2xl font-semibold tracking-[-0.025em]">{v.title}</h3>
                 <p className="mt-3 text-[16px] leading-relaxed text-slate">{v.body}</p>

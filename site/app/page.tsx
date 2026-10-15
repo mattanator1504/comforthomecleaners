@@ -34,7 +34,7 @@ export default function Home() {
       <section className="relative overflow-hidden px-4 pb-16 pt-10 sm:px-6 sm:pt-16">
         <div className="aurora pointer-events-none absolute inset-0" />
         <div className="grid-lines pointer-events-none absolute inset-0" />
-        <div className="relative mx-auto max-w-6xl text-center">
+        <div className="hero-copy relative mx-auto max-w-6xl text-center">
           <p className="glass mx-auto inline-flex items-center gap-2 rounded-full px-4 py-2 text-[13px] font-medium text-ink/80">
             <span className="relative flex h-2 w-2">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-aqua opacity-60 motion-reduce:animate-none" />
@@ -64,12 +64,12 @@ export default function Home() {
         </div>
 
         <div className="relative mx-auto mt-14 max-w-6xl">
-          <div className="rounded-[34px] bg-white/50 p-1.5 shadow-[0_40px_120px_-40px_rgb(7_17_29/0.45)] ring-1 ring-white/80 sm:rounded-[46px] sm:p-2">
+          <div className="hero-frame rounded-[34px] bg-white/50 p-1.5 shadow-[0_40px_120px_-40px_rgb(7_17_29/0.45)] ring-1 ring-white/80 sm:rounded-[46px] sm:p-2">
             <CleanSweep src="/images/hero.webp" width={1387} height={1016} alt="Bright, freshly cleaned living room with a white armchair by the window" />
           </div>
 
           {/* Floating HUD cards */}
-          <div className="mt-4 grid gap-3 sm:grid-cols-3 lg:pointer-events-none lg:absolute lg:inset-x-0 lg:-bottom-10 lg:mt-0 lg:px-10">
+          <div data-stagger className="mt-4 grid gap-3 sm:grid-cols-3 lg:pointer-events-none lg:absolute lg:inset-x-0 lg:-bottom-10 lg:mt-0 lg:px-10">
             {[
               { icon: <Leaf className="h-5 w-5" />, k: "Products", v: "Natural ingredients" },
               { icon: <Shield className="h-5 w-5" />, k: "Coverage", v: "Insured, every visit" },
@@ -87,10 +87,26 @@ export default function Home() {
         </div>
       </section>
 
+      {/* TICKER */}
+      <div className="ticker overflow-hidden border-y border-ink/5 bg-white/40 py-5 lg:mt-14" aria-hidden="true">
+        <div className="ticker-track flex w-max gap-10 whitespace-nowrap font-mono text-[13px] uppercase tracking-[0.2em] text-slate">
+          {[0, 1].map((k) => (
+            <div key={k} className="flex gap-10">
+              {[...services.map((s) => s.name), ...extras].map((n) => (
+                <span key={n + k} className="flex items-center gap-10">
+                  {n}
+                  <Sparkle className="h-3 w-3 text-aqua" />
+                </span>
+              ))}
+            </div>
+          ))}
+        </div>
+      </div>
+
       {/* SERVICES BENTO */}
-      <section aria-labelledby="services" className="px-4 pb-24 pt-16 sm:px-6 lg:pt-28">
+      <section aria-labelledby="services" className="px-4 pb-24 pt-16 sm:px-6 lg:pt-24">
         <div className="mx-auto max-w-6xl">
-          <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
+          <div data-reveal className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
             <h2 id="services" className="max-w-2xl text-balance text-4xl font-semibold leading-[1.02] tracking-[-0.035em] sm:text-[56px]">
               One crew for the whole house. And the office.
             </h2>
@@ -99,11 +115,11 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="mt-12 grid auto-rows-[minmax(220px,auto)] gap-4 md:grid-cols-6">
+          <div data-stagger className="mt-12 grid auto-rows-[minmax(220px,auto)] gap-4 md:grid-cols-6">
             {/* Residential: hero tile */}
             <Link
               href={`/services#${residential.id}`}
-              className="group relative overflow-hidden rounded-[32px] bg-night text-white md:col-span-4 md:row-span-2"
+              data-spotlight className="group relative overflow-hidden rounded-[32px] bg-night text-white md:col-span-4 md:row-span-2"
             >
               <img
                 src={residential.image.src}
@@ -120,7 +136,7 @@ export default function Home() {
               </div>
             </Link>
 
-            <Link href={`/services#${deep.id}`} className="group glass flex flex-col justify-between rounded-[32px] p-7 md:col-span-2">
+            <Link href={`/services#${deep.id}`} data-spotlight className="group glass flex flex-col justify-between rounded-[32px] p-7 md:col-span-2">
               <Sparkle className="sparkle h-8 w-8 text-aqua" />
               <div>
                 <h3 className="text-2xl font-semibold tracking-[-0.025em]">{deep.name}</h3>
@@ -128,7 +144,7 @@ export default function Home() {
               </div>
             </Link>
 
-            <Link href={`/services#${appliances.id}`} className="group flex flex-col justify-between rounded-[32px] bg-gradient-to-br from-[#dff7f3] to-[#e3e8ff] p-7 md:col-span-2">
+            <Link href={`/services#${appliances.id}`} data-spotlight className="group flex flex-col justify-between rounded-[32px] bg-gradient-to-br from-[#dff7f3] to-[#e3e8ff] p-7 md:col-span-2">
               <span className="font-mono text-[12px] uppercase tracking-[0.16em] text-aqua-deep">Enamel · Chrome · Stainless</span>
               <div>
                 <h3 className="text-2xl font-semibold tracking-[-0.025em]">Fridge and stove deep cleaning</h3>
@@ -138,7 +154,7 @@ export default function Home() {
 
             <Link
               href={`/services#${commercial.id}`}
-              className="group relative overflow-hidden rounded-[32px] bg-night text-white md:col-span-3"
+              data-spotlight className="group relative overflow-hidden rounded-[32px] bg-night text-white md:col-span-3"
             >
               <img
                 src={commercial.image.src}
@@ -155,7 +171,7 @@ export default function Home() {
               </div>
             </Link>
 
-            <Link href={`/services#${carpet.id}`} className="group glass flex flex-col justify-between rounded-[32px] p-7 md:col-span-3">
+            <Link href={`/services#${carpet.id}`} data-spotlight className="group glass flex flex-col justify-between rounded-[32px] p-7 md:col-span-3">
               <Paw className="h-8 w-8 text-aqua" />
               <div>
                 <h3 className="text-2xl font-semibold tracking-[-0.025em]">{carpet.name}</h3>
@@ -163,7 +179,7 @@ export default function Home() {
               </div>
             </Link>
 
-            <Link href={`/services#${painting.id}`} className="group relative flex flex-col justify-between gap-6 overflow-hidden rounded-[32px] bg-ink p-7 text-white md:col-span-6 md:min-h-[260px] md:flex-row md:items-end">
+            <Link href={`/services#${painting.id}`} data-spotlight className="group relative flex flex-col justify-between gap-6 overflow-hidden rounded-[32px] bg-ink p-7 text-white md:col-span-6 md:min-h-[260px] md:flex-row md:items-end">
               <img
                 src={painting.image.src}
                 width={painting.image.w}
@@ -185,10 +201,10 @@ export default function Home() {
 
       {/* SPEC SHEET */}
       <section aria-labelledby="spec" className="relative overflow-hidden bg-night px-4 py-24 text-white sm:px-6 sm:py-32">
-        <div className="pointer-events-none absolute -left-40 top-0 h-[32rem] w-[32rem] rounded-full bg-aqua/30 blur-[120px]" />
-        <div className="pointer-events-none absolute -right-40 bottom-0 h-[28rem] w-[28rem] rounded-full bg-lilac/20 blur-[120px]" />
+        <div className="drift-a pointer-events-none absolute -left-40 top-0 h-[32rem] w-[32rem] rounded-full bg-aqua/30 blur-[120px]" />
+        <div className="drift-b pointer-events-none absolute -right-40 bottom-0 h-[28rem] w-[28rem] rounded-full bg-lilac/20 blur-[120px]" />
         <div className="relative mx-auto grid max-w-6xl gap-12 lg:grid-cols-[1fr_1.4fr]">
-          <div>
+          <div data-reveal>
             <h2 id="spec" className="text-balance text-4xl font-semibold leading-[1.02] tracking-[-0.035em] sm:text-[56px]">
               What you get, written down.
             </h2>
@@ -198,7 +214,7 @@ export default function Home() {
           </div>
           <table className="w-full border-collapse text-left">
             <caption className="sr-only">Comfort Home Cleaners service specification</caption>
-            <tbody>
+            <tbody data-stagger>
               {specs.map((s) => (
                 <tr key={s.k} className="border-t border-white/12 last:border-b">
                   <th scope="row" className="w-36 py-5 pr-6 align-top font-mono text-[12px] font-normal uppercase tracking-[0.16em] text-glow sm:w-48">
@@ -215,7 +231,7 @@ export default function Home() {
       {/* REVIEWS */}
       <section aria-labelledby="reviews" className="px-4 pt-24 sm:px-6 sm:pt-32">
         <div className="mx-auto max-w-6xl">
-          <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
+          <div data-reveal className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
             <h2 id="reviews" className="max-w-2xl text-balance text-4xl font-semibold leading-[1.02] tracking-[-0.035em] sm:text-[56px]">
               &ldquo;Cleaned my bathrooms like Mr. Clean.&rdquo;
             </h2>
@@ -235,7 +251,7 @@ export default function Home() {
       {/* ROOM BY ROOM */}
       <section aria-labelledby="rooms" className="px-4 py-24 sm:px-6 sm:py-32">
         <div className="mx-auto max-w-6xl">
-          <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
+          <div data-reveal className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
             <h2 id="rooms" className="max-w-2xl text-balance text-4xl font-semibold leading-[1.02] tracking-[-0.035em] sm:text-[56px]">
               What a clean covers, room by room.
             </h2>
@@ -243,7 +259,7 @@ export default function Home() {
               A typical visit, so you know what to expect. Every home is different, so tell us what to add or skip.
             </p>
           </div>
-          <div className="mt-12">
+          <div data-reveal className="mt-12">
             <RoomScanner />
           </div>
         </div>
@@ -251,11 +267,11 @@ export default function Home() {
 
       {/* HOW IT WORKS */}
       <section aria-labelledby="process" className="px-4 pb-24 sm:px-6 sm:pb-32">
-        <div className="mx-auto max-w-6xl rounded-[40px] bg-white/70 p-6 ring-1 ring-ink/5 sm:p-12">
+        <div data-reveal className="mx-auto max-w-6xl rounded-[40px] bg-white/70 p-6 ring-1 ring-ink/5 sm:p-12">
           <h2 id="process" className="max-w-xl text-balance text-4xl font-semibold leading-[1.02] tracking-[-0.035em] sm:text-5xl">
             From first call to a finished clean.
           </h2>
-          <ol className="mt-12 grid gap-8 md:grid-cols-3 md:gap-6">
+          <ol data-stagger className="mt-12 grid gap-8 md:grid-cols-3 md:gap-6">
             {steps.map((s, i) => (
               <li key={s.title} className="relative">
                 <div className="flex items-center gap-3">
@@ -273,7 +289,7 @@ export default function Home() {
       {/* FAQ */}
       <section aria-labelledby="faq" className="px-4 pb-8 sm:px-6">
         <div className="mx-auto grid max-w-6xl gap-10 lg:grid-cols-[1fr_1.6fr]">
-          <div>
+          <div data-reveal>
             <h2 id="faq" className="text-balance text-4xl font-semibold leading-[1.02] tracking-[-0.035em] sm:text-5xl">
               Questions people ask before booking.
             </h2>

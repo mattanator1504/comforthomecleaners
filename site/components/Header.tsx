@@ -4,7 +4,7 @@ import { Mark, Phone } from "./Icons";
 
 export default function Header() {
   return (
-    <header className="sticky top-0 z-50 px-3 pt-3 sm:px-6 sm:pt-4">
+    <header className="site-header sticky top-0 z-50 px-3 pt-3 sm:px-6 sm:pt-4">
       <div className="glass mx-auto flex max-w-6xl items-center gap-2 rounded-full py-2 pl-3 pr-2 sm:pl-5">
         <Link href="/" className="flex min-h-12 items-center gap-2.5 rounded-full pr-2" aria-label={`${site.name} home`}>
           <Mark className="h-8 w-8" />

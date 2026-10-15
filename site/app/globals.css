@@ -108,3 +108,110 @@ body {
   html { scroll-behavior: auto; }
   .sparkle, .sweep-clip, .sweep-beam { animation: none; }
 }
+
+/* ---------- Motion ---------- */
+
+/* Scroll reveals (set up by components/Motion.tsx) */
+[data-reveal] {
+  transition:
+    opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0ms),
+    transform 0.9s cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0ms),
+    filter 0.9s cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0ms);
+}
+[data-motion] [data-reveal][data-hidden] {
+  opacity: 0;
+  transform: translateY(36px) scale(0.985);
+  filter: blur(8px);
+  transition-duration: 0s;
+}
+
+/* Cursor spotlight on cards */
+[data-spotlight] {
+  position: relative;
+  isolation: isolate;
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.5s;
+}
+[data-spotlight]::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: inherit;
+  pointer-events: none;
+  background: radial-gradient(380px circle at var(--mx, -999px) var(--my, -999px), rgb(127 231 218 / 0.22), transparent 45%);
+  opacity: 0;
+  transition: opacity 0.35s;
+}
+[data-spotlight]:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 30px 60px -30px rgb(7 17 29 / 0.45);
+}
+[data-spotlight]:hover::after {
+  opacity: 1;
+}
+
+/* Header tightens once the page scrolls */
+.site-header > div {
+  transition: background-color 0.4s, box-shadow 0.4s, padding 0.4s;
+}
+[data-scrolled] .site-header > div {
+  background: rgb(255 255 255 / 0.82);
+  box-shadow: 0 1px 0 rgb(255 255 255 / 0.8) inset, 0 18px 50px -20px rgb(7 17 29 / 0.35);
+}
+
+/* Service ticker */
+.ticker {
+  mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
+}
+.ticker-track {
+  animation: ticker 38s linear infinite;
+}
+.ticker:hover .ticker-track {
+  animation-play-state: paused;
+}
+@keyframes ticker {
+  to { transform: translateX(-50%); }
+}
+
+/* Scroll-linked effects, where the browser supports scroll timelines */
+@supports (animation-timeline: view()) {
+  .hero-copy {
+    animation: hero-copy-out linear both;
+    animation-timeline: scroll(root);
+    animation-range: 0 70vh;
+  }
+  .hero-frame {
+    animation: hero-frame-in linear both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 40%;
+  }
+  .drift-a, .drift-b {
+    animation: drift linear both;
+    animation-timeline: view();
+  }
+  .drift-b { animation-direction: reverse; }
+  .parallax-img {
+    animation: parallax linear both;
+    animation-timeline: view();
+  }
+}
+@keyframes hero-copy-out {
+  to { opacity: 0.1; transform: translateY(-70px) scale(0.96); filter: blur(6px); }
+}
+@keyframes hero-frame-in {
+  from { transform: scale(0.9) translateY(30px); }
+  to { transform: none; }
+}
+@keyframes drift {
+  from { transform: translate3d(-80px, 60px, 0); }
+  to { transform: translate3d(120px, -80px, 0); }
+}
+@keyframes parallax {
+  from { transform: scale(1.12) translateY(-4%); }
+  to { transform: scale(1.12) translateY(4%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ticker-track, .hero-copy, .hero-frame, .drift-a, .drift-b, .parallax-img { animation: none !important; }
+  [data-spotlight], [data-spotlight]:hover { transform: none; }
+}

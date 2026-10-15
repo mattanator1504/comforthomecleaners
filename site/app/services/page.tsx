@@ -37,7 +37,7 @@ export default function ServicesPage() {
 
       <div className="mx-auto max-w-6xl space-y-6 px-4 py-16 sm:px-6 sm:py-24">
         {services.map((s, i) => (
-          <section key={s.id} id={s.id} aria-labelledby={`${s.id}-h`} className="scroll-mt-40 overflow-hidden rounded-[36px] bg-white/75 ring-1 ring-ink/5">
+          <section key={s.id} id={s.id} data-reveal aria-labelledby={`${s.id}-h`} className="scroll-mt-40 overflow-hidden rounded-[36px] bg-white/75 ring-1 ring-ink/5">
             <div className={`grid lg:grid-cols-2 ${i % 2 ? "lg:[&>*:first-child]:order-2" : ""}`}>
               <div className="relative min-h-[280px] overflow-hidden">
                 <img
@@ -46,7 +46,7 @@ export default function ServicesPage() {
                   height={s.image.h}
                   alt={s.image.alt}
                   loading="lazy"
-                  className="absolute inset-0 h-full w-full object-cover"
+                  className="parallax-img absolute inset-0 h-full w-full object-cover"
                 />
               </div>
               <div className="p-7 sm:p-12">
@@ -84,7 +84,7 @@ export default function ServicesPage() {
           </section>
         ))}
 
-        <section aria-labelledby="also" className="rounded-[36px] bg-night p-7 text-white sm:p-12">
+        <section data-reveal aria-labelledby="also" className="rounded-[36px] bg-night p-7 text-white sm:p-12">
           <h2 id="also" className="text-3xl font-semibold tracking-[-0.03em] sm:text-4xl">
             Also on the list
           </h2>

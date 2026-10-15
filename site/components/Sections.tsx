@@ -8,7 +8,7 @@ import QuoteForm from "./QuoteForm";
 
 export function Faq({ items = faq }: { items?: typeof faq }) {
   return (
-    <div className="divide-y divide-ink/10 overflow-hidden rounded-[28px] border border-ink/10 bg-white/70">
+    <div data-reveal className="divide-y divide-ink/10 overflow-hidden rounded-[28px] border border-ink/10 bg-white/70">
       {items.map((f) => (
         <details key={f.q} className="group px-6 sm:px-8">
           <summary className="flex min-h-16 cursor-pointer list-none items-center justify-between gap-6 py-5 text-[17px] font-medium text-ink [&::-webkit-details-marker]:hidden">
@@ -42,7 +42,7 @@ export function QuoteBlock({ id = "quote", heading = "Get a quote for your first
     <section aria-labelledby={id} className="relative overflow-hidden px-4 py-20 sm:px-6 sm:py-28">
       <div className="aurora pointer-events-none absolute inset-0 opacity-80" />
       <div className="relative mx-auto grid max-w-6xl gap-10 lg:grid-cols-[1fr_1.1fr] lg:gap-16">
-        <div className="lg:pt-6">
+        <div data-reveal className="lg:pt-6">
           <h2 id={id} className="text-balance text-4xl font-semibold leading-[1.02] tracking-[-0.035em] sm:text-5xl">
             {heading}
           </h2>
@@ -70,7 +70,7 @@ export function QuoteBlock({ id = "quote", heading = "Get a quote for your first
             </a>
           </div>
         </div>
-        <div className="glass rounded-[32px] p-5 sm:p-8">
+        <div data-reveal style={{ "--reveal-delay": "120ms" } as React.CSSProperties} className="glass rounded-[32px] p-5 sm:p-8">
           <QuoteForm />
         </div>
       </div>
