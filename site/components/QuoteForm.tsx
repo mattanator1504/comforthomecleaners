@@ -6,7 +6,7 @@ import { site } from "@/lib/site";
 
 function Stepper({ label, name, value, onChange }: { label: string; name: string; value: number; onChange: (n: number) => void }) {
   return (
-    <div className="flex items-center justify-between rounded-2xl border border-ink/10 bg-white px-4 py-2">
+    <div className="flex items-center justify-between rounded-xl border border-[#d2d2d7] bg-white px-4 py-1.5">
       <span id={`${name}-label`} className="text-[15px] text-ink">
         {label}
       </span>
@@ -36,7 +36,7 @@ function Stepper({ label, name, value, onChange }: { label: string; name: string
 }
 
 const field =
-  "mt-1.5 block w-full rounded-2xl border border-ink/10 bg-white px-4 py-3.5 text-[16px] text-ink placeholder:text-slate/60 outline-none transition focus:border-aqua focus:ring-4 focus:ring-aqua/15";
+  "mt-1.5 block w-full rounded-xl border border-[#d2d2d7] bg-white px-4 py-3.5 text-[17px] text-ink placeholder:text-slate/70 outline-none transition focus:border-aqua focus:ring-4 focus:ring-aqua/15";
 
 export default function QuoteForm() {
   const router = useRouter();
@@ -119,7 +119,7 @@ export default function QuoteForm() {
       <button
         type="submit"
         disabled={state === "sending"}
-        className="press mt-2 flex min-h-14 items-center justify-center rounded-full bg-aqua-deep px-8 text-[17px] font-medium text-white transition-colors hover:bg-ink disabled:opacity-60"
+        className="press mt-2 flex min-h-14 items-center justify-center rounded-full bg-aqua px-8 text-[17px] font-medium text-white transition-colors hover:bg-aqua-deep disabled:opacity-60"
       >
         {state === "sending" ? "Sending…" : "Send my quote request"}
       </button>

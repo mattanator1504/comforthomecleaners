@@ -1,91 +1,101 @@
 import Link from "next/link";
 import { nav, site } from "@/lib/site";
 import { services } from "@/content/services";
-import { Facebook, Mark } from "./Icons";
 
+// Apple-style footer: quiet, grey, dense, everything findable.
 export default function Footer() {
   return (
-    <footer className="relative overflow-hidden bg-night text-white">
-      <div className="relative mx-auto grid max-w-6xl gap-12 px-5 py-16 sm:px-8 md:grid-cols-[1.3fr_1fr_1fr]">
-        <div>
-          <Link href="/" className="inline-flex items-center gap-3" aria-label={`${site.name} home`}>
-            <Mark className="h-10 w-10" />
-            <span className="text-lg font-semibold tracking-tight">{site.name}</span>
-          </Link>
-          <p className="mt-4 max-w-sm text-[15px] leading-relaxed text-white/65">
-            {site.legalName}. Owner-operated house and commercial cleaning in {site.city}, {site.region}, with eco-friendly products and insured work.
-          </p>
-          <div className="mt-6 space-y-1.5 text-[15px]">
-            <p>
-              <a href={`tel:${site.phone}`} className="text-white hover:text-glow">
-                {site.phoneDisplay}
-              </a>
-            </p>
-            <p>
-              <a href={`mailto:${site.email}`} className="text-white/80 hover:text-glow">
-                {site.email}
-              </a>
-            </p>
-            <p className="text-white/60">Open {site.hours}</p>
+    <footer className="bg-frost text-[13px] leading-relaxed text-slate">
+      <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+        <p className="pb-5 shadow-[0_1px_0_rgb(0_0_0/0.1)]">
+          {site.legalName} is a local, owner-operated cleaning business in {site.city}, {site.region}. Every visit uses natural-ingredient products and is covered by our insurance. Reviews quoted on this site are from our Facebook page, word for word.
+        </p>
+
+        <div className="grid gap-8 py-8 sm:grid-cols-2 md:grid-cols-4">
+          <div>
+            <h2 id="footer-services" className="text-[13px] font-semibold text-ink">
+              Services
+            </h2>
+            <ul className="mt-2.5 space-y-2">
+              {services.map((s) => (
+                <li key={s.id}>
+                  <Link href={`/services#${s.id}`} className="hover:text-ink hover:underline">
+                    {s.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div>
+            <h2 id="footer-company" className="text-[13px] font-semibold text-ink">
+              Comfort Home
+            </h2>
+            <ul className="mt-2.5 space-y-2">
+              <li>
+                <Link href="/" className="hover:text-ink hover:underline">
+                  Home
+                </Link>
+              </li>
+              {nav.map((n) => (
+                <li key={n.href}>
+                  <Link href={n.href} className="hover:text-ink hover:underline">
+                    {n.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div>
+            <h2 id="footer-contact" className="text-[13px] font-semibold text-ink">
+              Contact
+            </h2>
+            <ul className="mt-2.5 space-y-2">
+              <li>
+                <a href={`tel:${site.phone}`} className="hover:text-ink hover:underline">
+                  {site.phoneDisplay}
+                </a>
+              </li>
+              <li>
+                <a href={`mailto:${site.email}`} className="break-all hover:text-ink hover:underline">
+                  {site.email}
+                </a>
+              </li>
+              <li>Open {site.hours}</li>
+            </ul>
+          </div>
+          <div>
+            <h2 id="footer-follow" className="text-[13px] font-semibold text-ink">
+              Follow
+            </h2>
+            <ul className="mt-2.5 space-y-2">
+              <li>
+                <a href={site.social.facebook} target="_blank" rel="noopener noreferrer" className="hover:text-ink hover:underline">
+                  Facebook
+                </a>
+              </li>
+              <li>
+                <a href={site.social.facebookReviews} target="_blank" rel="noopener noreferrer" className="hover:text-ink hover:underline">
+                  Facebook reviews
+                </a>
+              </li>
+            </ul>
           </div>
         </div>
 
-        <div>
-          <h2 id="footer-services" className="text-[14px] font-medium text-white/70">
-            Services
-          </h2>
-          <ul className="mt-4 space-y-2 text-[15px]">
-            {services.map((s) => (
-              <li key={s.id}>
-                <Link href={`/services#${s.id}`} className="text-white/80 hover:text-white">
-                  {s.name}
-                </Link>
-              </li>
-            ))}
-          </ul>
+        <div className="flex flex-col gap-2 pt-5 shadow-[0_-1px_0_rgb(0_0_0/0.1)] sm:flex-row sm:justify-between">
+          <p>
+            Copyright © {new Date().getFullYear()} {site.legalName}. All rights reserved.
+          </p>
+          <p>
+            <Link href="/privacy" className="hover:text-ink hover:underline">
+              Privacy Policy
+            </Link>
+            <span className="px-2 text-ink/20" aria-hidden="true">
+              |
+            </span>
+            {site.city}, {site.region}
+          </p>
         </div>
-
-        <div>
-          <h2 id="footer-company" className="text-[14px] font-medium text-white/70">
-            Company
-          </h2>
-          <ul className="mt-4 space-y-2 text-[15px]">
-            <li>
-              <Link href="/" className="text-white/80 hover:text-white">
-                Home
-              </Link>
-            </li>
-            {nav.map((n) => (
-              <li key={n.href}>
-                <Link href={n.href} className="text-white/80 hover:text-white">
-                  {n.label}
-                </Link>
-              </li>
-            ))}
-            <li>
-              <Link href="/privacy" className="text-white/80 hover:text-white">
-                Privacy policy
-              </Link>
-            </li>
-          </ul>
-          <a
-            href={site.social.facebook}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-6 inline-flex min-h-12 items-center gap-2 rounded-full bg-white/10 px-4 text-[14px] text-white/85 hover:bg-white/20"
-          >
-            <Facebook className="h-4 w-4" />
-            Follow us on Facebook
-          </a>
-        </div>
-      </div>
-      <p aria-hidden="true" className="relative select-none overflow-hidden whitespace-nowrap px-3 text-center text-[13.5vw] font-semibold leading-[0.8] tracking-[-0.06em] text-white/[0.07]">
-        Comfort Home
-      </p>
-      <div className="relative bg-black/30">
-        <p className="mx-auto max-w-6xl px-5 py-6 text-[14px] text-white/60 sm:px-8">
-          © {new Date().getFullYear()} {site.legalName}. All rights reserved.
-        </p>
       </div>
     </footer>
   );

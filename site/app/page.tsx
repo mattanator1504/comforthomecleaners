@@ -2,12 +2,13 @@ import Link from "next/link";
 import { pageMetadata, site } from "@/lib/site";
 import { hero, steps } from "@/content/home";
 import { services, extras } from "@/content/services";
+import { reviews, reviewStats } from "@/content/reviews";
 import CleanSweep from "@/components/CleanSweep";
 import RoomScanner from "@/components/RoomScanner";
-import ReviewWall from "@/components/Reviews";
+import Rail from "@/components/Rail";
 import JsonLd from "@/components/JsonLd";
 import { Faq, faqSchema, QuoteBlock } from "@/components/Sections";
-import { Paw, Phone, Sparkle } from "@/components/Icons";
+import { Chat, Leaf, Shield, Sparkle } from "@/components/Icons";
 
 export const metadata = pageMetadata({
   title: "Comfort Home Cleaners: House Cleaning in Milwaukee, WI",
@@ -18,232 +19,167 @@ export const metadata = pageMetadata({
 
 const specs = [
   { k: "Products", v: "Natural ingredients only, so fewer chemicals are left on your surfaces and in your air." },
-  { k: "Kids and pets", v: "Eco-friendly products that are safe and effective around both. Tell us how to handle pets and we plan around them." },
+  { k: "Kids and pets", v: "Eco-friendly products that are safe and effective around both." },
   { k: "Insurance", v: "Covers our employees and the work we do in your home." },
-  { k: "Guarantee", v: "Customer satisfaction guaranteed. Something missed? Let us know and we put it right." },
-  { k: "Communication", v: "Constant updates from first call until the job is done." },
-  { k: "Schedule", v: "Monday to Friday. Businesses can book one-time, daily, weekly or monthly." },
+  { k: "Guarantee", v: "Something missed? Let us know and we put it right." },
+  { k: "Updates", v: "Constant communication from first call until the job is done." },
+  { k: "Schedule", v: "Monday to Friday. Businesses book one-time, daily, weekly or monthly." },
+];
+
+const why = [
+  { icon: <Sparkle className="h-7 w-7" />, t: "Owner-operated.", b: "No call centre between you and the people cleaning your home. The owner answers for every visit." },
+  { icon: <Leaf className="h-7 w-7" />, t: "Natural ingredients.", b: "What we clean with ends up in your air. So we only use products with natural ingredients." },
+  { icon: <Shield className="h-7 w-7" />, t: "Insured and guaranteed.", b: "Our insurance covers our employees and the work in your home, and we guarantee your satisfaction." },
+  { icon: <Chat className="h-7 w-7" />, t: "You always know.", b: "Our process is about transparency: you hear from us until the job is done." },
 ];
 
 export default function Home() {
-  const [residential, deep, commercial, carpet, appliances, painting] = services;
-
   return (
     <>
       {/* HERO */}
-      <section className="relative overflow-hidden px-4 pb-10 pt-8 sm:px-6 lg:pb-16 lg:pt-12">
-        <div className="aurora pointer-events-none absolute inset-0" />
-        <div className="relative mx-auto grid max-w-6xl items-center gap-10 lg:grid-cols-12 lg:gap-10">
-          <div className="hero-copy lg:col-span-6">
-           <div className="enter">
-            <h1 className="text-[52px] font-semibold leading-[0.92] tracking-[-0.05em] sm:text-[80px] lg:text-[clamp(3.75rem,5.6vw,5.5rem)]">
-              {hero.h1}
-            </h1>
-            <p className="mt-7 max-w-md text-[19px] leading-relaxed text-ink">{hero.sub}</p>
-            <div className="mt-9 flex flex-wrap items-center gap-x-6 gap-y-4">
-              <Link
-                href="/contact"
-                className="press flex min-h-14 items-center justify-center rounded-full bg-ink px-8 text-[17px] font-medium text-white transition-colors hover:bg-aqua-deep"
-              >
-                Get a free quote
-              </Link>
-              <a href={`tel:${site.phone}`} className="press flex min-h-12 items-center gap-2 text-[17px] font-medium text-ink hover:text-aqua-deep">
-                <Phone className="h-4 w-4 text-aqua" />
-                or call {site.phoneDisplay}
-              </a>
-            </div>
-            <Link href="/reviews" className="group mt-12 flex max-w-md items-center gap-4">
-              <span className="flex -space-x-1.5" aria-hidden="true">
-                {["M", "R", "T"].map((i, k) => (
-                  <span key={i} className={`flex h-11 w-11 items-center justify-center rounded-full text-[15px] font-semibold text-white border-[3px] border-frost ${["bg-aqua-deep", "bg-aqua", "bg-ink"][k]}`}>
-                    {i}
-                  </span>
-                ))}
-              </span>
-              <span className="text-[16px] leading-snug text-ink">
-                <strong className="font-semibold">100% of 10 Facebook reviewers</strong> recommend us.{" "}
-                <span className="text-aqua-deep group-hover:underline">Read what they said</span>
-              </span>
+      <section className="overflow-hidden px-4 pb-20 pt-14 sm:px-6 sm:pt-20">
+        <div className="enter mx-auto max-w-4xl text-center">
+          <p className="t-sub text-aqua">Comfort Home Cleaners</p>
+          <h1 className="t-hero mt-2 text-balance">{hero.h1}.</h1>
+          <p className="t-lead mx-auto mt-5 max-w-xl text-slate">{hero.sub}</p>
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-x-8 gap-y-4">
+            <Link href="/contact" className="flex min-h-12 items-center rounded-full bg-aqua px-7 text-[17px] text-white hover:bg-aqua-deep">
+              Get a free quote
             </Link>
-           </div>
+            <a href={`tel:${site.phone}`} className="chev text-[17px] text-aqua hover:underline">
+              Call {site.phoneDisplay}
+            </a>
           </div>
+        </div>
 
-          <div className="hero-frame lg:col-span-6">
-            <CleanSweep src="/images/hero.webp" width={1387} height={1016} alt="Bright, freshly cleaned living room with a white armchair by the window" />
+        <div className="hero-frame mx-auto mt-14 max-w-6xl">
+          <CleanSweep src="/images/hero.webp" width={1387} height={1016} alt="Bright, freshly cleaned living room with a white armchair by the window" />
+        </div>
+        <p className="mt-4 text-center text-[14px] text-slate">Drag the line, or flick it.</p>
+      </section>
+
+      {/* STATS */}
+      <section aria-labelledby="stats" className="px-4 pb-24 sm:px-6">
+        <h2 id="stats" className="sr-only">
+          Comfort Home Cleaners in numbers
+        </h2>
+        <dl data-stagger className="mx-auto grid max-w-5xl gap-10 text-center sm:grid-cols-3">
+          <div className="flex flex-col">
+            <dt className="text-[17px] text-slate">of Facebook reviewers recommend us</dt>
+            <dd className="order-first text-[64px] font-bold leading-none tracking-[-0.04em] text-ink sm:text-[80px]" data-count="100" data-suffix="%">
+              {reviewStats.recommend}
+            </dd>
           </div>
+          <div className="flex flex-col">
+            <dt className="text-[17px] text-slate">people follow our work on Facebook</dt>
+            <dd className="order-first text-[64px] font-bold leading-none tracking-[-0.04em] text-ink sm:text-[80px]">{reviewStats.followers}</dd>
+          </div>
+          <div className="flex flex-col">
+            <dt className="text-[17px] text-slate">days a week we clean, Monday to Friday</dt>
+            <dd className="order-first text-[64px] font-bold leading-none tracking-[-0.04em] text-ink sm:text-[80px]" data-count="5">
+              5
+            </dd>
+          </div>
+        </dl>
+      </section>
+
+      {/* SERVICES RAIL */}
+      <section aria-labelledby="services" className="bg-frost py-24 sm:py-32">
+        <div data-reveal className="mx-auto max-w-6xl px-4 sm:px-6">
+          <h2 id="services" className="t-display">
+            Get to know the services.
+          </h2>
+          <p className="t-lead mt-4 max-w-2xl text-slate">
+            Regular and deep cleaning, commercial spaces, carpets, appliances, even the paint on the walls. Also {extras.join(" and ").toLowerCase()}.
+          </p>
+        </div>
+        <div className="mt-12">
+          <Rail label="Cleaning services">
+            {services.map((s) => (
+              <Link
+                key={s.id}
+                href={`/services#${s.id}`}
+                data-spotlight
+                className="group relative flex h-[500px] w-[300px] flex-none flex-col overflow-hidden rounded-[28px] bg-white sm:h-[560px] sm:w-[380px]"
+              >
+                <div className="relative z-10 p-7 sm:p-8">
+                  <h3 className="text-[24px] font-bold leading-tight tracking-[-0.02em] sm:text-[28px]">{s.name}</h3>
+                  <p className="mt-3 text-[17px] leading-snug text-slate">{s.short}</p>
+                </div>
+                <img
+                  src={s.image.src}
+                  width={s.image.w}
+                  height={s.image.h}
+                  alt={s.image.alt}
+                  loading="lazy"
+                  className="mt-auto h-[55%] w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+                />
+              </Link>
+            ))}
+          </Rail>
         </div>
       </section>
 
-      {/* TICKER */}
-      <div className="ticker overflow-hidden bg-mist py-6" aria-hidden="true">
-        <div className="ticker-track flex w-max gap-10 whitespace-nowrap text-[24px] font-medium tracking-[-0.02em] text-ink/70">
-          {[0, 1].map((k) => (
-            <div key={k} className="flex gap-10">
-              {[...services.map((s) => s.name), ...extras].map((n) => (
-                <span key={n + k} className="flex items-center gap-10">
-                  {n}
-                  <Sparkle className="h-4 w-4 text-aqua" />
-                </span>
-              ))}
+      {/* MATERIALS, on black */}
+      <section aria-labelledby="spec" className="overflow-hidden bg-night px-4 py-28 text-white sm:px-6 sm:py-36">
+        <div data-reveal className="mx-auto max-w-4xl text-center">
+          <h2 id="spec" className="t-hero text-balance">
+            Natural ingredients. <span className="text-white/45">Nothing harsh.</span>
+          </h2>
+          <p className="t-lead mx-auto mt-6 max-w-2xl text-white/70">
+            What we use to clean your home makes its way into your body. So the standard starts with the bottle, and ends with someone answering the phone.
+          </p>
+        </div>
+        <div className="scale-in mx-auto mt-16 max-w-6xl overflow-hidden rounded-[28px] sm:rounded-[36px]">
+          <img src="/images/kitchen.webp" width={1600} height={959} alt="Spotless white kitchen with a marble island" loading="lazy" className="aspect-[4/3] w-full object-cover sm:aspect-[21/9]" />
+        </div>
+        <dl data-stagger className="mx-auto mt-16 grid max-w-6xl gap-x-10 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
+          {specs.map((s) => (
+            <div key={s.k}>
+              <dt className="text-[21px] font-semibold tracking-[-0.015em] text-glow">{s.k}</dt>
+              <dd className="mt-2 text-[17px] leading-relaxed text-white/75">{s.v}</dd>
             </div>
           ))}
-        </div>
-      </div>
-
-      {/* SERVICES BENTO */}
-      <section aria-labelledby="services" className="px-4 pb-24 pt-16 sm:px-6 lg:pt-24">
-        <div className="mx-auto max-w-6xl">
-          <div data-reveal className="flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
-            <h2 id="services" className="max-w-2xl text-balance text-4xl font-semibold leading-[1.02] tracking-[-0.035em] sm:text-[56px]">
-              One crew for every room.
-            </h2>
-            <p className="max-w-sm text-[17px] leading-relaxed text-slate">
-              Comfort Home Cleaners handles regular cleaning, deep cleans, commercial spaces, carpets, appliances and even the paint on the walls.
-            </p>
-          </div>
-
-          <div data-stagger className="mt-12 grid auto-rows-[minmax(220px,auto)] gap-4 md:grid-cols-6">
-            {/* Residential: hero tile */}
-            <Link
-              href={`/services#${residential.id}`}
-              data-spotlight className="group relative overflow-hidden rounded-[32px] bg-night text-white md:col-span-4 md:row-span-2"
-            >
-              <img
-                src={residential.image.src}
-                width={residential.image.w}
-                height={residential.image.h}
-                alt={residential.image.alt}
-                loading="lazy"
-                className="absolute inset-0 h-full w-full object-cover opacity-90 transition duration-700 group-hover:scale-[1.03]"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-night via-night/30 to-transparent" />
-              <div className="relative flex h-full min-h-[420px] flex-col justify-end p-7 sm:p-9">
-                <h3 className="text-3xl font-semibold tracking-[-0.03em] sm:text-4xl">{residential.name}</h3>
-                <p className="mt-3 max-w-md text-[16px] leading-relaxed text-white/80">{residential.short}</p>
-              </div>
-            </Link>
-
-            <Link href={`/services#${deep.id}`} data-spotlight className="group glass flex flex-col justify-between rounded-[32px] p-7 md:col-span-2">
-              <Sparkle className="sparkle h-8 w-8 text-aqua" />
-              <div>
-                <h3 className="text-2xl font-semibold tracking-[-0.025em]">{deep.name}</h3>
-                <p className="mt-2 text-[15px] leading-relaxed text-slate">{deep.short}</p>
-              </div>
-            </Link>
-
-            <Link href={`/services#${appliances.id}`} data-spotlight className="group flex flex-col justify-between rounded-[32px] bg-[#d9f2ee] p-7 md:col-span-2">
-              <span className="text-[15px] font-medium text-aqua-deep">Enamel, chrome or stainless</span>
-              <div>
-                <h3 className="text-2xl font-semibold tracking-[-0.025em]">Fridge and stove deep cleaning</h3>
-                <p className="mt-2 text-[15px] leading-relaxed text-slate">{appliances.short}</p>
-              </div>
-            </Link>
-
-            <Link
-              href={`/services#${commercial.id}`}
-              data-spotlight className="group relative overflow-hidden rounded-[32px] bg-night text-white md:col-span-3"
-            >
-              <img
-                src={commercial.image.src}
-                width={commercial.image.w}
-                height={commercial.image.h}
-                alt={commercial.image.alt}
-                loading="lazy"
-                className="absolute inset-0 h-full w-full object-cover opacity-70 transition duration-700 group-hover:scale-[1.03]"
-              />
-              <div className="absolute inset-0 bg-gradient-to-tr from-night/90 via-night/40 to-transparent" />
-              <div className="relative flex h-full min-h-[260px] flex-col justify-end p-7">
-                <h3 className="text-2xl font-semibold tracking-[-0.025em]">{commercial.name}</h3>
-                <p className="mt-2 max-w-sm text-[15px] leading-relaxed text-white/80">{commercial.short}</p>
-              </div>
-            </Link>
-
-            <Link href={`/services#${carpet.id}`} data-spotlight className="group glass flex flex-col justify-between rounded-[32px] p-7 md:col-span-3">
-              <Paw className="h-8 w-8 text-aqua" />
-              <div>
-                <h3 className="text-2xl font-semibold tracking-[-0.025em]">{carpet.name}</h3>
-                <p className="mt-2 max-w-md text-[15px] leading-relaxed text-slate">{carpet.short}</p>
-              </div>
-            </Link>
-
-            <Link href={`/services#${painting.id}`} data-spotlight className="group relative flex flex-col justify-between gap-6 overflow-hidden rounded-[32px] bg-ink p-7 text-white md:col-span-6 md:min-h-[260px] md:flex-row md:items-end">
-              <img
-                src={painting.image.src}
-                width={painting.image.w}
-                height={painting.image.h}
-                alt={painting.image.alt}
-                loading="lazy"
-                className="absolute inset-y-0 right-0 h-full w-full object-cover opacity-60 transition duration-700 group-hover:scale-[1.03] md:w-3/5"
-              />
-              <div className="absolute inset-0 bg-gradient-to-r from-ink via-ink/85 to-ink/20" />
-              <div className="relative">
-                <h3 className="text-2xl font-semibold tracking-[-0.025em]">{painting.name}</h3>
-                <p className="mt-2 max-w-xl text-[15px] leading-relaxed text-white/70">{painting.short}</p>
-              </div>
-              <p className="relative text-[15px] font-medium text-glow">Also: {extras.join(" · ")}</p>
-            </Link>
-          </div>
-        </div>
+        </dl>
       </section>
 
-      {/* SPEC SHEET */}
-      <section aria-labelledby="spec" className="relative overflow-hidden bg-night px-4 py-24 text-white sm:px-6 sm:py-32">
-        <div className="drift-a pointer-events-none absolute -left-40 top-0 h-[32rem] w-[32rem] rounded-full bg-aqua/30 blur-[120px]" />
-                <div className="relative mx-auto grid max-w-6xl gap-12 lg:grid-cols-[1fr_1.4fr]">
-          <div data-reveal className="lg:sticky lg:top-32 lg:self-start">
-            <h2 id="spec" className="text-balance text-4xl font-semibold leading-[1.02] tracking-[-0.035em] sm:text-[56px]">
-              What you get, written down.
-            </h2>
-            <p className="mt-5 max-w-sm text-[17px] leading-relaxed text-white/65">
-              What we use to clean your home makes its way into your body. So the spec starts with the bottle, and ends with someone answering the phone.
-            </p>
-          </div>
-          <table className="w-full border-collapse text-left">
-            <caption className="sr-only">Comfort Home Cleaners service specification</caption>
-            <tbody data-stagger>
-              {specs.map((s) => (
-                <tr key={s.k} className="border-t border-white/12 last:border-b">
-                  <th scope="row" className="w-32 py-5 pr-6 align-top text-[16px] font-semibold text-glow sm:w-44">
-                    {s.k}
-                  </th>
-                  <td className="py-5 text-[16px] leading-relaxed text-white/85 sm:text-[17px]">{s.v}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+      {/* REVIEWS RAIL */}
+      <section aria-labelledby="reviews" className="py-24 sm:py-32">
+        <div data-reveal className="mx-auto max-w-6xl px-4 sm:px-6">
+          <h2 id="reviews" className="t-display">
+            Ten reviews. Ten recommend.
+          </h2>
+          <p className="t-lead mt-4 max-w-2xl text-slate">
+            Carpets that look new, wine and pet stains gone, bathrooms cleaned &ldquo;like Mr. Clean.&rdquo; From our Facebook reviews, word for word.{" "}
+            <Link href="/reviews" className="chev text-aqua hover:underline">
+              Read all reviews
+            </Link>
+          </p>
         </div>
-      </section>
-
-      {/* REVIEWS */}
-      <section aria-labelledby="reviews" className="px-4 pt-24 sm:px-6 sm:pt-32">
-        <div className="mx-auto max-w-6xl">
-          <div data-reveal className="flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
-            <h2 id="reviews" className="max-w-2xl text-balance text-4xl font-semibold leading-[1.02] tracking-[-0.035em] sm:text-[56px]">
-              Ten reviews. Ten recommend.
-            </h2>
-            <p className="max-w-sm text-[17px] leading-relaxed text-slate">
-              Carpets that look new, wine and pet stains gone, bathrooms cleaned &ldquo;like Mr. Clean.&rdquo; Straight from our Facebook reviews, word for word.
-            </p>
-          </div>
-          <div className="mt-12">
-            <ReviewWall limit={5} />
-          </div>
-          <Link href="/reviews" className="mt-8 inline-flex min-h-12 items-center rounded-full bg-ink px-6 text-[15px] font-medium text-white hover:bg-aqua-deep">
-            See all client reviews
-          </Link>
+        <div className="mt-12">
+          <Rail label="Client reviews">
+            {reviews.map((r) => (
+              <figure key={r.id} className="flex w-[300px] flex-none flex-col rounded-[28px] bg-frost p-7 sm:w-[400px] sm:p-9">
+                <p className="text-[15px] font-semibold text-aqua">{r.topic}</p>
+                <blockquote className="mt-4 flex-1 text-[19px] leading-snug tracking-[-0.012em] text-ink sm:text-[21px]">&ldquo;{r.quote}&rdquo;</blockquote>
+                <figcaption className="mt-8 text-[15px]">
+                  <span className="block font-semibold">{r.name}</span>
+                  <span className="block text-slate">Recommends us on Facebook</span>
+                </figcaption>
+              </figure>
+            ))}
+          </Rail>
         </div>
       </section>
 
       {/* ROOM BY ROOM */}
-      <section aria-labelledby="rooms" className="px-4 py-24 sm:px-6 sm:py-32">
+      <section aria-labelledby="rooms" className="bg-frost px-4 py-24 sm:px-6 sm:py-32">
         <div className="mx-auto max-w-6xl">
-          <div data-reveal className="flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
-            <h2 id="rooms" className="max-w-2xl text-balance text-4xl font-semibold leading-[1.02] tracking-[-0.035em] sm:text-[56px]">
+          <div data-reveal className="text-center">
+            <h2 id="rooms" className="t-display">
               What we clean, room by room.
             </h2>
-            <p className="max-w-sm text-[17px] leading-relaxed text-slate">
-              A typical visit, so you know what to expect. Every home is different, so tell us what to add or skip.
-            </p>
+            <p className="t-lead mx-auto mt-4 max-w-2xl text-slate">A typical visit, so you know what to expect. Tell us what to add or skip.</p>
           </div>
           <div data-reveal className="mt-12">
             <RoomScanner />
@@ -251,17 +187,30 @@ export default function Home() {
         </div>
       </section>
 
-      {/* HOW IT WORKS */}
-      <section aria-labelledby="process" className="px-4 pb-24 sm:px-6 sm:pb-32">
-        <div data-reveal className="mx-auto max-w-6xl">
-          <h2 id="process" className="max-w-xl text-balance text-4xl font-semibold leading-[1.02] tracking-[-0.035em] sm:text-5xl">
-            From first call to a finished clean.
+      {/* WHY */}
+      <section aria-labelledby="why" className="px-4 py-24 sm:px-6 sm:py-32">
+        <div className="mx-auto max-w-6xl">
+          <h2 id="why" data-reveal className="t-display">
+            Why Comfort Home.
           </h2>
-          <ol data-stagger className="mt-12 grid gap-4 md:grid-cols-[1.2fr_1fr_1fr]">
-            {steps.map((s, i) => (
-              <li key={s.title} className={`rounded-[28px] p-7 sm:p-8 ${i === 0 ? "bg-ink text-white" : "bg-mist"}`}>
-                <h3 className="text-2xl font-semibold tracking-[-0.025em]">{s.title}</h3>
-                <p className={`mt-3 text-[17px] leading-relaxed ${i === 0 ? "text-white/80" : "text-ink"}`}>{s.body}</p>
+          <div data-stagger className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {why.map((w) => (
+              <div key={w.t} data-spotlight className="flex flex-col rounded-[28px] bg-frost p-8">
+                <span className="text-aqua">{w.icon}</span>
+                <h3 className="mt-10 text-[24px] font-bold leading-tight tracking-[-0.02em]">{w.t}</h3>
+                <p className="mt-3 text-[17px] leading-snug text-slate">{w.b}</p>
+              </div>
+            ))}
+          </div>
+
+          <h3 data-reveal className="t-title mt-28">
+            From first call to finished clean.
+          </h3>
+          <ol data-stagger className="mt-10 grid gap-10 md:grid-cols-3">
+            {steps.map((s) => (
+              <li key={s.title}>
+                <p className="text-[21px] font-semibold tracking-[-0.015em]">{s.title}</p>
+                <p className="mt-2 text-[17px] leading-relaxed text-slate">{s.body}</p>
               </li>
             ))}
           </ol>
@@ -269,17 +218,20 @@ export default function Home() {
       </section>
 
       {/* FAQ */}
-      <section aria-labelledby="faq" className="px-4 pb-8 sm:px-6">
-        <div className="mx-auto grid max-w-6xl gap-10 lg:grid-cols-[1fr_1.6fr]">
-          <div data-reveal>
-            <h2 id="faq" className="text-balance text-4xl font-semibold leading-[1.02] tracking-[-0.035em] sm:text-5xl">
-              Questions people ask before booking.
-            </h2>
-            <p className="mt-5 max-w-sm text-[17px] leading-relaxed text-slate">
-              Not here? Call <a href={`tel:${site.phone}`} className="font-medium text-aqua">{site.phoneDisplay}</a> and ask a person.
-            </p>
+      <section aria-labelledby="faq" className="px-4 pb-28 sm:px-6">
+        <div className="mx-auto max-w-6xl">
+          <h2 id="faq" data-reveal className="t-display">
+            Questions? Answers.
+          </h2>
+          <p data-reveal className="t-lead mt-4 text-slate">
+            Not here?{" "}
+            <a href={`tel:${site.phone}`} className="chev text-aqua hover:underline">
+              Call {site.phoneDisplay}
+            </a>
+          </p>
+          <div className="mt-10">
+            <Faq />
           </div>
-          <Faq />
         </div>
       </section>
 

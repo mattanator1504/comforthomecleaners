@@ -1,83 +1,153 @@
 @import "tailwindcss";
 
-/* Motion tokens (improve-animations / Emil Kowalski values) */
+/* ---------------------------------------------------------------
+   Comfort Home Cleaners: Apple-style system
+   Neutrals from Apple's product pages, the brand's teal as the one
+   accent, the platform's own font, translucency only for chrome
+   that floats over content.
+   --------------------------------------------------------------- */
+
 :root {
+  /* Motion: strong ease-out for entrances, ease-in-out for on-screen moves */
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
   --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
 }
 
 @theme inline {
-  --color-frost: #f3f6f9;
-  --color-mist: #e6edf3;
-  --color-ink: #0a1626;
-  --color-slate: #33445a;
-  --color-aqua: #0a7480;
-  --color-aqua-deep: #075a63;
-  --color-glow: #7fe7da;
+  --color-white: #ffffff;
+  --color-frost: #f5f5f7; /* Apple's light tile */
+  --color-mist: #e8e8ed; /* control fills, pressed states */
+  --color-ink: #1d1d1f; /* primary text */
+  --color-slate: #6e6e73; /* secondary text (4.6:1 on #f5f5f7) */
+  --color-aqua: #0a7480; /* the brand accent: buttons, links */
+  --color-aqua-deep: #075a63; /* accent pressed/hover */
+  --color-glow: #66d9cc; /* accent on dark */
   --color-lilac: #bcc8ff;
-  --color-night: #07111d;
-  --font-sans: var(--font-geist-sans);
+  --color-night: #000000; /* Apple's dark sections */
+  --color-graphite: #161617; /* tiles on dark */
+  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", "Segoe UI", system-ui, sans-serif;
 }
 
 html {
   scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
-  background: var(--color-frost);
+  background: #fff;
   color: var(--color-ink);
-  font-family: var(--font-geist-sans), system-ui, sans-serif;
+  font-family: var(--font-sans);
+  font-size: 1.0625rem; /* 17px, Apple's body size */
+  line-height: 1.47;
+  letter-spacing: -0.011em; /* small text: barely tightened */
   -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
+  font-optical-sizing: auto;
+}
+
+/* Size-specific tracking (apple-design §15): tighter as type grows */
+.t-hero {
+  font-size: clamp(3rem, 8.5vw, 6rem);
+  line-height: 1.04;
+  letter-spacing: -0.03em;
+  font-weight: 700;
+}
+.t-display {
+  font-size: clamp(2.5rem, 5.6vw, 4rem);
+  line-height: 1.06;
+  letter-spacing: -0.025em;
+  font-weight: 700;
+}
+.t-title {
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  font-weight: 700;
+}
+.t-sub {
+  font-size: clamp(1.1875rem, 2vw, 1.75rem);
+  line-height: 1.25;
+  letter-spacing: -0.012em;
+  font-weight: 600;
+}
+.t-lead {
+  font-size: clamp(1.1875rem, 1.6vw, 1.3125rem);
+  line-height: 1.42;
+  letter-spacing: -0.012em;
 }
 
 ::selection {
-  background: var(--color-glow);
+  background: #b9ece6;
   color: var(--color-ink);
 }
 
 :focus-visible {
   outline: 2px solid var(--color-aqua);
   outline-offset: 3px;
-  border-radius: 6px;
+  border-radius: 8px;
 }
 
-/* Soft aurora wash behind the hero: the "clean air" of the brand. */
+/* Older pages draw an .aurora layer; in this system the ground is plain. */
 .aurora {
-  background:
-    radial-gradient(60% 50% at 18% 12%, rgb(127 231 218 / 0.45), transparent 70%),
-    radial-gradient(50% 45% at 85% 8%, rgb(188 200 255 / 0.55), transparent 70%),
-    radial-gradient(40% 40% at 60% 60%, rgb(255 255 255 / 0.9), transparent 70%);
+  display: none;
 }
 
+/* .glass = a light tile. Tiles are solid; translucency is reserved for
+   chrome that floats over content (the nav, chips on photos). */
 .glass {
-  background: rgb(255 255 255 / 0.62);
-  backdrop-filter: blur(18px) saturate(1.6);
-  -webkit-backdrop-filter: blur(18px) saturate(1.6);
+  background: var(--color-frost);
 }
 
+/* Chips over photographs: a dark material that keeps text legible */
 .glass-dark {
-  background: rgb(7 17 29 / 0.55);
-  backdrop-filter: blur(16px) saturate(1.4);
-  -webkit-backdrop-filter: blur(16px) saturate(1.4);
+  background: rgb(0 0 0 / 0.42);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+}
+
+/* The floating chrome: Apple's translucent bar */
+.material {
+  background: rgb(251 251 253 / 0.8);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+}
+.material-dark {
+  background: rgb(22 22 23 / 0.8);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
 }
 
 .text-balance {
   text-wrap: balance;
 }
 
-/* The sweep line in the hero before/after */
+/* Apple's text link with a chevron */
+.chev::after {
+  content: "";
+  display: inline-block;
+  width: 0.42em;
+  height: 0.42em;
+  margin-left: 0.3em;
+  border-right: 0.12em solid currentColor;
+  border-top: 0.12em solid currentColor;
+  transform: translateY(-0.08em) rotate(45deg);
+  transition: transform 200ms var(--ease-out);
+}
+.chev:hover::after {
+  transform: translate(0.12em, -0.08em) rotate(45deg);
+}
+
+/* ---------- Hero before/after ---------- */
+
 .sweep-line {
   background: #fff;
 }
-
 .sweep-clip {
   clip-path: inset(0 38% 0 0);
-  animation: sweep-clip 2.4s var(--ease-out) 0.4s both;
+  animation: sweep-clip 2.4s var(--ease-out) 0.5s both;
 }
 .sweep-beam {
   left: 62%;
-  animation: sweep-beam 2.4s var(--ease-out) 0.4s both;
+  animation: sweep-beam 2.4s var(--ease-out) 0.5s both;
 }
 @keyframes sweep-clip {
   from { clip-path: inset(0 100% 0 0); }
@@ -96,58 +166,47 @@ body {
   50% { opacity: 1; transform: scale(1); }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  .sparkle, .sweep-clip, .sweep-beam { animation: none; }
-}
+/* ---------- Scroll reveals (components/Motion.tsx) ---------- */
 
-/* ---------- Motion ---------- */
-
-/* Scroll reveals (set up by components/Motion.tsx) */
 [data-reveal] {
   transition:
     opacity 0.9s var(--ease-out) var(--reveal-delay, 0ms),
-    transform 0.9s var(--ease-out) var(--reveal-delay, 0ms),
-    filter 0.9s var(--ease-out) var(--reveal-delay, 0ms);
+    transform 0.9s var(--ease-out) var(--reveal-delay, 0ms);
 }
-@media (prefers-reduced-motion: reduce) {
-  [data-motion] [data-reveal][data-hidden] { transform: none !important; filter: none !important; }
-  details[open] > :not(summary), .settle > *, .menu-pop { animation-name: fade-only; }
-}
-@keyframes fade-only { from { opacity: 0; } }
 [data-motion] [data-reveal][data-hidden] {
   opacity: 0;
-  transform: translateY(36px) scale(0.985);
-  filter: blur(8px);
+  transform: translateY(40px);
   transition-duration: 0s;
 }
 
-/* Cards lift a little under the pointer */
+/* Cards lift a little under a real pointer */
 [data-spotlight] {
   transition: transform 0.5s var(--ease-out);
 }
 @media (hover: hover) and (pointer: fine) {
   [data-spotlight]:hover {
-    transform: translateY(-4px);
+    transform: scale(1.012);
   }
 }
 
-/* Press feedback, on pointer-down (apple-design) */
+/* Press feedback, on pointer-down (apple-design §1) */
 .press,
 main a.rounded-full,
 main button,
-.site-header a {
-  transition: transform 160ms var(--ease-out), background-color 0.2s ease, color 0.2s ease;
+.site-header a,
+.site-header summary {
+  transition: transform 160ms var(--ease-out), background-color 0.2s ease, color 0.2s ease, opacity 0.2s ease;
 }
 .press:active,
 main a.rounded-full:active,
 main button:active,
-.site-header a:active {
+.site-header a:active,
+.site-header summary:active {
   transform: scale(0.97);
 }
 
 /* Keyboard users can see where the before/after slider is */
-.sweep:has(input:focus-visible) {
+.sweep:has(:focus-visible) {
   outline: 3px solid var(--color-aqua);
   outline-offset: 4px;
 }
@@ -167,96 +226,100 @@ details[open] > :not(summary) {
   from { opacity: 0; transform: translateY(8px); }
 }
 
-/* Mobile menu grows out of its button (top-right), not from nowhere */
+/* Mobile menu: a sheet that materializes from the bar (blur + scale together, §12) */
 .menu-pop {
-  transform-origin: top right;
-  animation: menu-pop 200ms var(--ease-out);
+  transform-origin: top center;
+  animation: materialize 280ms var(--ease-out);
 }
-@keyframes menu-pop {
-  from { opacity: 0; transform: scale(0.95) translateY(-4px); }
-}
-
-/* Header tightens once the page scrolls */
-.site-header > div {
-  transition: background-color 0.4s, box-shadow 0.4s, padding 0.4s;
-}
-[data-scrolled] .site-header > div {
-  background: rgb(255 255 255 / 0.82);
-  box-shadow: 0 1px 0 rgb(255 255 255 / 0.8) inset, 0 18px 50px -20px rgb(7 17 29 / 0.35);
+@keyframes materialize {
+  from { opacity: 0; transform: scale(0.98) translateY(-8px); filter: blur(6px); }
 }
 
-/* Service ticker */
-.ticker-track {
-  animation: ticker 38s linear infinite;
+/* First-screen entrance: heading, then text, then actions */
+.enter > * {
+  animation: enter 1s var(--ease-out) both;
 }
-.ticker:hover .ticker-track {
-  animation-play-state: paused;
-}
-@keyframes ticker {
-  to { transform: translateX(-50%); }
+.enter > :nth-child(2) { animation-delay: 90ms; }
+.enter > :nth-child(3) { animation-delay: 180ms; }
+.enter > :nth-child(4) { animation-delay: 270ms; }
+.enter > :nth-child(5) { animation-delay: 360ms; }
+@keyframes enter {
+  from { opacity: 0; transform: translateY(28px); }
 }
 
-/* Scroll-linked effects, where the browser supports scroll timelines */
+/* Horizontal card rails: native momentum + snap, edge-to-edge like apple.com */
+.rail {
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: var(--rail-pad);
+  padding-inline: var(--rail-pad);
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+  --rail-pad: max(1rem, calc((100vw - 72rem) / 2 + 1.5rem));
+}
+.rail::-webkit-scrollbar {
+  display: none;
+}
+.rail > * {
+  scroll-snap-align: start;
+}
+
+/* Header gains its material edge once content is under it (§12: scroll edge, not a hard line) */
+.site-header {
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+[data-scrolled] .site-header {
+  box-shadow: 0 1px 0 rgb(0 0 0 / 0.08);
+}
+
+/* Scroll-linked effects where the browser supports scroll timelines */
 @supports (animation-timeline: view()) {
-  .hero-copy {
-    animation: hero-copy-out linear both;
-    animation-timeline: scroll(root);
-    animation-range: 0 70vh;
-  }
   .hero-frame {
     animation: hero-frame-in linear both;
     animation-timeline: view();
-    animation-range: entry 0% cover 40%;
+    animation-range: entry 0% cover 45%;
   }
-  .drift-a, .drift-b {
-    animation: drift linear both;
-    animation-timeline: view();
-  }
-  .drift-b { animation-direction: reverse; }
   .parallax-img {
     animation: parallax linear both;
     animation-timeline: view();
   }
-}
-@keyframes hero-copy-out {
-  to { opacity: 0.1; transform: translateY(-70px) scale(0.96); filter: blur(6px); }
+  .scale-in {
+    animation: scale-in linear both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 40%;
+  }
 }
 @keyframes hero-frame-in {
-  from { transform: scale(0.9) translateY(30px); }
+  from { transform: scale(0.86); border-radius: 48px; }
   to { transform: none; }
-}
-@keyframes drift {
-  from { transform: translate3d(-80px, 60px, 0); }
-  to { transform: translate3d(120px, -80px, 0); }
 }
 @keyframes parallax {
   from { transform: scale(1.12) translateY(-4%); }
   to { transform: scale(1.12) translateY(4%); }
 }
+@keyframes scale-in {
+  from { transform: scale(0.92); opacity: 0.4; }
+  to { transform: none; opacity: 1; }
+}
+
+/* ---------- Accessibility (§14) ---------- */
+
+@keyframes fade-only { from { opacity: 0; } }
 
 @media (prefers-reduced-motion: reduce) {
-  .ticker-track, .hero-copy, .hero-frame, .drift-a, .drift-b, .parallax-img { animation: none !important; }
+  html { scroll-behavior: auto; }
+  .sparkle, .sweep-clip, .sweep-beam, .hero-frame, .parallax-img, .scale-in { animation: none !important; }
+  [data-motion] [data-reveal][data-hidden] { transform: none !important; }
+  details[open] > :not(summary), .settle > *, .menu-pop, .enter > * { animation-name: fade-only; }
   [data-spotlight], [data-spotlight]:hover { transform: none; }
 }
 
-/* Visitors who ask for less transparency get solid surfaces (apple-design) */
 @media (prefers-reduced-transparency: reduce) {
-  .glass { background: #fff; backdrop-filter: none; -webkit-backdrop-filter: none; }
-  .glass-dark { background: var(--color-night); backdrop-filter: none; -webkit-backdrop-filter: none; }
+  .material { background: #fbfbfd; backdrop-filter: none; -webkit-backdrop-filter: none; }
+  .material-dark { background: #161617; backdrop-filter: none; -webkit-backdrop-filter: none; }
+  .glass-dark { background: rgb(0 0 0 / 0.8); backdrop-filter: none; -webkit-backdrop-filter: none; }
 }
 
-/* First-screen entrance: heading, then text, then actions (60-90ms apart).
-   Pure CSS, so the content is there even if the script never runs. */
-.enter > * {
-  animation: enter 0.9s var(--ease-out) both;
-}
-.enter > :nth-child(2) { animation-delay: 80ms; }
-.enter > :nth-child(3) { animation-delay: 160ms; }
-.enter > :nth-child(4) { animation-delay: 240ms; }
-.enter > :nth-child(5) { animation-delay: 320ms; }
-@keyframes enter {
-  from { opacity: 0; transform: translateY(24px); }
-}
-@media (prefers-reduced-motion: reduce) {
-  .enter > * { animation: none; }
+@media (prefers-contrast: more) {
+  .material { background: #fff; box-shadow: 0 1px 0 #1d1d1f; }
+  .glass { background: #fff; box-shadow: inset 0 0 0 1px #1d1d1f; }
 }

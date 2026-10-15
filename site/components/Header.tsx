@@ -2,24 +2,19 @@ import Link from "next/link";
 import { nav, site } from "@/lib/site";
 import { Mark, Phone } from "./Icons";
 
+// Apple-style global nav: a thin translucent bar that content scrolls under.
 export default function Header() {
   return (
-    <header className="site-header sticky top-0 z-50 px-3 pt-3 sm:px-6 sm:pt-4">
-      <div className="glass mx-auto flex max-w-6xl items-center gap-2 rounded-full py-2 pl-3 pr-2 sm:pl-5">
-        <Link href="/" className="flex min-h-12 items-center gap-2.5 rounded-full pr-2" aria-label={`${site.name} home`}>
-          <Mark className="h-8 w-8" />
-          <span className="whitespace-nowrap text-[15px] font-semibold tracking-tight">
-            Comfort Home <span className="hidden font-normal text-slate min-[420px]:inline">Cleaners</span>
-          </span>
+    <header className="site-header material sticky top-0 z-50">
+      <div className="mx-auto flex h-12 max-w-6xl items-center gap-1 px-4 sm:px-6">
+        <Link href="/" className="-ml-2 flex h-12 items-center gap-2 rounded-lg px-2" aria-label={`${site.name} home`}>
+          <Mark className="h-6 w-6" />
+          <span className="whitespace-nowrap text-[15px] font-semibold tracking-[-0.01em]">Comfort Home</span>
         </Link>
 
-        <nav aria-label="Main" className="ml-auto hidden items-center lg:flex">
+        <nav aria-label="Main" className="mx-auto hidden items-center gap-1 md:flex">
           {nav.map((n) => (
-            <Link
-              key={n.href}
-              href={n.href}
-              className="rounded-full px-4 py-3 text-[15px] text-ink/80 transition-colors hover:bg-white/80 hover:text-ink"
-            >
+            <Link key={n.href} href={n.href} className="flex h-12 items-center px-4 text-[14px] text-ink/80 transition-colors hover:text-ink">
               {n.label}
             </Link>
           ))}
@@ -27,44 +22,38 @@ export default function Header() {
 
         <a
           href={`tel:${site.phone}`}
-          className="ml-2 hidden min-h-12 items-center gap-2 rounded-full px-4 text-[15px] font-medium text-ink/80 hover:text-ink xl:flex"
-        >
-          <Phone className="h-4 w-4 text-aqua" />
-          {site.phoneDisplay}
-        </a>
-        <a
-          href={`tel:${site.phone}`}
           aria-label={`Call ${site.phoneDisplay}`}
-          className="press ml-auto flex h-12 w-12 items-center justify-center rounded-full bg-white/80 text-aqua lg:ml-2 xl:hidden"
+          className="ml-auto flex h-12 items-center gap-1.5 px-3 text-[14px] text-ink/80 hover:text-ink md:ml-0"
         >
-          <Phone className="h-5 w-5" />
+          <Phone className="h-4 w-4" />
+          <span className="hidden lg:inline">{site.phoneDisplay}</span>
         </a>
         <Link
           href="/contact"
-          className="press flex min-h-12 items-center whitespace-nowrap rounded-full bg-ink px-4 text-[14px] font-medium text-white sm:px-5 transition-colors hover:bg-aqua-deep"
+          className="flex h-8 items-center whitespace-nowrap rounded-full bg-aqua px-4 text-[13px] font-medium text-white hover:bg-aqua-deep"
         >
           Get a quote
         </Link>
 
-        <details className="group relative lg:hidden">
+        <details className="group md:hidden">
           <summary
             aria-label="Menu"
-            className="flex h-12 w-12 cursor-pointer list-none items-center justify-center rounded-full bg-white/80 [&::-webkit-details-marker]:hidden"
+            className="ml-1 flex h-12 w-11 cursor-pointer list-none items-center justify-center [&::-webkit-details-marker]:hidden"
           >
-            <span className="relative block h-3 w-5">
-              <span className="absolute inset-x-0 top-0 h-0.5 rounded bg-ink transition-transform group-open:translate-y-[5px] group-open:rotate-45" />
-              <span className="absolute inset-x-0 bottom-0 h-0.5 rounded bg-ink transition-transform group-open:-translate-y-[5px] group-open:-rotate-45" />
+            <span className="relative block h-3 w-[18px]">
+              <span className="absolute inset-x-0 top-0 h-[1.5px] rounded bg-ink transition-transform duration-300 group-open:translate-y-[5px] group-open:rotate-45" />
+              <span className="absolute inset-x-0 bottom-0 h-[1.5px] rounded bg-ink transition-transform duration-300 group-open:-translate-y-[5px] group-open:-rotate-45" />
             </span>
           </summary>
-          <nav aria-label="Mobile" className="menu-pop glass absolute right-0 top-14 flex w-56 flex-col rounded-3xl p-2">
-            <Link href="/" className="rounded-2xl px-4 py-3 text-[15px] hover:bg-white">
-              Home
-            </Link>
-            {nav.map((n) => (
-              <Link key={n.href} href={n.href} className="rounded-2xl px-4 py-3 text-[15px] hover:bg-white">
+          <nav aria-label="Mobile" className="menu-pop material fixed inset-x-0 top-12 h-[calc(100dvh-3rem)] px-8 pt-6">
+            {[{ href: "/", label: "Home" }, ...nav].map((n) => (
+              <Link key={n.href} href={n.href} className="block py-2.5 text-[28px] font-semibold tracking-[-0.02em] text-ink">
                 {n.label}
               </Link>
             ))}
+            <a href={`tel:${site.phone}`} className="mt-6 block py-2 text-[17px] text-aqua">
+              Call {site.phoneDisplay}
+            </a>
           </nav>
         </details>
       </div>

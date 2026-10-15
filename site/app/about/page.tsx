@@ -67,7 +67,7 @@ export default function AboutPage() {
           </h2>
           <div data-stagger className="mt-12 grid gap-4 md:grid-cols-[1.1fr_1fr_1fr]">
             {values.map((v, i) => (
-              <div key={v.title} data-spotlight className={`rounded-[28px] p-7 sm:p-9 ${i === 0 ? "bg-ink text-white md:row-span-2 md:flex md:flex-col md:justify-end" : i === 3 ? "bg-[#d9f2ee] md:col-span-2" : "bg-white"}`}>
+              <div key={v.title} data-spotlight className={`rounded-[28px] p-7 sm:p-9 ${i === 0 ? "bg-ink text-white md:row-span-2 md:flex md:flex-col md:justify-end" : i === 3 ? "bg-[#d9f2ee] md:col-span-2" : "bg-frost"}`}>
                 <h3 className="text-2xl font-semibold tracking-[-0.025em]">{v.title}</h3>
                 <p className={`mt-3 text-[17px] leading-relaxed ${i === 0 ? "text-white/80" : "text-ink"}`}>{v.body}</p>
               </div>

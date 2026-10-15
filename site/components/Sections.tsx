@@ -1,24 +1,23 @@
 import Link from "next/link";
 import { faq } from "@/content/faq";
 import { site } from "@/lib/site";
-import { Phone, Facebook } from "./Icons";
 import QuoteForm from "./QuoteForm";
 
 // Shared blocks used across pages.
 
 export function Faq({ items = faq }: { items?: typeof faq }) {
   return (
-    <div data-reveal className="grid gap-2">
+    <div data-reveal className="shadow-[0_-1px_0_rgb(0_0_0/0.12)]">
       {items.map((f) => (
-        <details key={f.q} className="group rounded-[22px] bg-white px-6 sm:px-8">
-          <summary className="flex min-h-16 cursor-pointer list-none items-center justify-between gap-6 py-5 text-[17px] font-medium text-ink [&::-webkit-details-marker]:hidden">
-            <h3 className="text-[17px] font-medium">{f.q}</h3>
-            <span className="relative h-4 w-4 flex-none" aria-hidden="true">
-              <span className="absolute inset-x-0 top-1/2 h-0.5 -translate-y-1/2 rounded bg-aqua" />
-              <span className="absolute inset-y-0 left-1/2 w-0.5 -translate-x-1/2 rounded bg-aqua transition-transform group-open:rotate-90 group-open:opacity-0" />
+        <details key={f.q} className="group shadow-[0_1px_0_rgb(0_0_0/0.12)]">
+          <summary className="flex min-h-16 cursor-pointer list-none items-center justify-between gap-6 py-5 [&::-webkit-details-marker]:hidden">
+            <h3 className="text-[19px] font-semibold tracking-[-0.015em] sm:text-[21px]">{f.q}</h3>
+            <span className="relative h-4 w-4 flex-none text-slate" aria-hidden="true">
+              <span className="absolute inset-x-0 top-1/2 h-[1.5px] -translate-y-1/2 rounded bg-current" />
+              <span className="absolute inset-y-0 left-1/2 w-[1.5px] -translate-x-1/2 rounded bg-current transition-transform duration-300 group-open:rotate-90" />
             </span>
           </summary>
-          <p className="max-w-2xl pb-6 text-[16px] leading-relaxed text-slate">{f.a}</p>
+          <p className="max-w-3xl pb-7 text-[17px] leading-relaxed text-ink/80">{f.a}</p>
         </details>
       ))}
     </div>
@@ -37,40 +36,41 @@ export function faqSchema(items = faq) {
   };
 }
 
-export function QuoteBlock({ id = "quote", heading = "Get a quote for your first appointment" }: { id?: string; heading?: string }) {
+export function QuoteBlock({ id = "quote", heading = "Get a quote for your first visit." }: { id?: string; heading?: string }) {
   return (
-    <section aria-labelledby={id} className="relative overflow-hidden px-4 py-20 sm:px-6 sm:py-28">
-      <div className="aurora pointer-events-none absolute inset-0 opacity-80" />
-      <div className="relative mx-auto grid max-w-6xl gap-10 lg:grid-cols-[1fr_1.1fr] lg:gap-16">
-        <div data-reveal className="lg:pt-6">
-          <h2 id={id} className="text-balance text-4xl font-semibold leading-[1.02] tracking-[-0.035em] sm:text-5xl">
+    <section aria-labelledby={id} className="bg-frost px-4 py-24 sm:px-6 sm:py-32">
+      <div className="mx-auto grid max-w-6xl gap-12 lg:grid-cols-[1fr_1.15fr] lg:gap-20">
+        <div data-reveal className="lg:pt-4">
+          <h2 id={id} className="t-display text-balance">
             {heading}
           </h2>
-          <p className="mt-5 max-w-md text-[17px] leading-relaxed text-slate">
-            A good clean turns a home or business into a stress-free zone. Tell us the basics and we send a quote for your first visit.
+          <p className="t-lead mt-5 max-w-md text-slate">
+            A good clean turns a home or business into a stress-free zone. Send the basics and we quote your first appointment.
           </p>
-          <div className="mt-8 space-y-3">
-            <a href={`tel:${site.phone}`} className="glass flex min-h-16 items-center gap-4 rounded-2xl px-5">
-              <span className="flex h-10 w-10 items-center justify-center rounded-full bg-aqua text-white">
-                <Phone className="h-5 w-5" />
-              </span>
-              <span>
-                <span className="block text-[13px] text-slate">Call or text, Monday to Friday</span>
-                <span className="block text-[17px] font-medium">{site.phoneDisplay}</span>
-              </span>
-            </a>
-            <a href={site.social.facebookReviews} target="_blank" rel="noopener noreferrer" className="glass flex min-h-16 items-center gap-4 rounded-2xl px-5">
-              <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#1877f2] text-white">
-                <Facebook className="h-5 w-5" />
-              </span>
-              <span>
-                <span className="block text-[13px] text-slate">See photos and client reviews</span>
-                <span className="block text-[17px] font-medium">Comfort Home Cleaners on Facebook</span>
-              </span>
-            </a>
-          </div>
+          <dl className="mt-10 space-y-6 text-[17px]">
+            <div>
+              <dt className="font-semibold">Call or text</dt>
+              <dd className="mt-1">
+                <a href={`tel:${site.phone}`} className="chev text-aqua hover:underline">
+                  {site.phoneDisplay}
+                </a>
+              </dd>
+            </div>
+            <div>
+              <dt className="font-semibold">Hours</dt>
+              <dd className="mt-1 text-slate">{site.hours}</dd>
+            </div>
+            <div>
+              <dt className="font-semibold">Photos and reviews</dt>
+              <dd className="mt-1">
+                <a href={site.social.facebookReviews} target="_blank" rel="noopener noreferrer" className="chev text-aqua hover:underline">
+                  Comfort Home Cleaners on Facebook
+                </a>
+              </dd>
+            </div>
+          </dl>
         </div>
-        <div data-reveal style={{ "--reveal-delay": "120ms" } as React.CSSProperties} className="glass rounded-[32px] p-5 sm:p-8">
+        <div data-reveal style={{ "--reveal-delay": "120ms" } as React.CSSProperties} className="rounded-[28px] bg-white p-6 sm:p-10">
           <QuoteForm />
         </div>
       </div>
@@ -80,8 +80,8 @@ export function QuoteBlock({ id = "quote", heading = "Get a quote for your first
 
 export function Breadcrumbs({ items }: { items: { name: string; path: string }[] }) {
   return (
-    <nav aria-label="Breadcrumb" className="text-[14px] font-medium text-slate">
-      <ol className="flex flex-wrap items-center gap-2">
+    <nav aria-label="Breadcrumb" className="text-[14px] text-slate">
+      <ol className="flex flex-wrap items-center justify-center gap-2">
         <li>
           <Link href="/" className="hover:text-ink">
             Home
@@ -89,8 +89,16 @@ export function Breadcrumbs({ items }: { items: { name: string; path: string }[]
         </li>
         {items.map((it, i) => (
           <li key={it.path} className="flex items-center gap-2">
-            <span aria-hidden="true">/</span>
-            {i === items.length - 1 ? <span aria-current="page" className="text-ink">{it.name}</span> : <Link href={it.path}>{it.name}</Link>}
+            <span aria-hidden="true" className="text-ink/30">
+              /
+            </span>
+            {i === items.length - 1 ? (
+              <span aria-current="page" className="text-ink">
+                {it.name}
+              </span>
+            ) : (
+              <Link href={it.path}>{it.name}</Link>
+            )}
           </li>
         ))}
       </ol>
@@ -100,36 +108,34 @@ export function Breadcrumbs({ items }: { items: { name: string; path: string }[]
 
 type Img = { src: string; w: number; h: number; alt: string };
 
+// Apple inner-page opener: centred title, one line, then the picture at full width.
 export function PageHero({ crumbs, title, intro, image }: { crumbs: { name: string; path: string }[]; title: string; intro: string; image?: Img }) {
   return (
-    <section className="relative overflow-hidden px-4 pb-14 pt-14 sm:px-6 sm:pb-20 sm:pt-16">
-      <div className="aurora pointer-events-none absolute inset-0" />
-      <div className={`relative mx-auto max-w-6xl ${image ? "grid items-end gap-10 lg:grid-cols-12" : ""}`}>
-        <div className={`enter ${image ? "lg:col-span-7" : ""}`}>
-          <Breadcrumbs items={crumbs} />
-          <h1 className="mt-6 max-w-4xl text-balance text-[44px] font-semibold leading-[0.95] tracking-[-0.045em] sm:text-7xl">{title}</h1>
-          <p className="mt-6 max-w-2xl text-[19px] leading-relaxed text-ink sm:text-[20px]">{intro}</p>
-        </div>
-        {image && (
-          <div className="hero-frame overflow-hidden rounded-[32px] lg:col-span-5">
-            <img src={image.src} width={image.w} height={image.h} alt={image.alt} fetchPriority="high" className="aspect-[4/3] h-full w-full object-cover lg:aspect-[4/5]" />
-          </div>
-        )}
+    <section className="px-4 pb-16 pt-14 sm:px-6 sm:pt-20">
+      <div className="enter mx-auto max-w-4xl text-center">
+        <Breadcrumbs items={crumbs} />
+        <h1 className="t-hero mt-5 text-balance">{title}</h1>
+        <p className="t-lead mx-auto mt-6 max-w-2xl text-slate">{intro}</p>
       </div>
+      {image && (
+        <div className="hero-frame mx-auto mt-14 max-w-6xl overflow-hidden rounded-[28px] sm:rounded-[36px]">
+          <img src={image.src} width={image.w} height={image.h} alt={image.alt} fetchPriority="high" className="aspect-[4/3] w-full object-cover sm:aspect-[21/9]" />
+        </div>
+      )}
     </section>
   );
 }
 
 export function PhotoBand({ heading, id, photos }: { heading: string; id: string; photos: Img[] }) {
   return (
-    <section aria-labelledby={id} className="px-4 py-20 sm:px-6">
+    <section aria-labelledby={id} className="px-4 py-24 sm:px-6">
       <div className="mx-auto max-w-6xl">
-        <h2 id={id} data-reveal className="max-w-2xl text-balance text-4xl font-semibold leading-[1.02] tracking-[-0.035em] sm:text-5xl">
+        <h2 id={id} data-reveal className="t-title max-w-2xl text-balance">
           {heading}
         </h2>
-        <div data-stagger className="mt-10 grid gap-4 sm:grid-cols-[1.4fr_1fr_1fr]">
+        <div data-stagger className="mt-10 grid gap-5 sm:grid-cols-[1.4fr_1fr_1fr]">
           {photos.map((p, i) => (
-            <div key={p.src} className={`overflow-hidden rounded-[28px] ${i === 0 ? "sm:row-span-2" : ""}`}>
+            <div key={p.src} className={`overflow-hidden rounded-[24px] ${i === 0 ? "sm:row-span-2" : ""}`}>
               <img src={p.src} width={p.w} height={p.h} alt={p.alt} loading="lazy" className={`parallax-img h-full w-full object-cover ${i === 0 ? "aspect-[4/5]" : "aspect-[4/3]"}`} />
             </div>
           ))}

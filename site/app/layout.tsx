@@ -1,5 +1,4 @@
 import type { Metadata, Viewport } from "next";
-import { Geist } from "next/font/google";
 import "./globals.css";
 import { site, orgSchema, websiteSchema } from "@/lib/site";
 import Header from "@/components/Header";
@@ -7,11 +6,8 @@ import Footer from "@/components/Footer";
 import JsonLd from "@/components/JsonLd";
 import Motion from "@/components/Motion";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
-});
+// Type is the platform's own (SF Pro on Apple devices, Segoe on Windows):
+// optical sizing and tracking tables come for free, and no font file loads.
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -19,12 +15,12 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#f3f6f9",
+  themeColor: "#fbfbfd",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${geistSans.variable} antialiased`}>
+    <html lang="en" className="antialiased">
       <body className="flex min-h-dvh flex-col">
         <a
           href="#main"

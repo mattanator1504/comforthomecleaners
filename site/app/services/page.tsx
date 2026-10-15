@@ -23,8 +23,8 @@ export default function ServicesPage() {
         intro="For homes and businesses. Comfort Home Cleaners is a local, owner-operated business: pick one service or combine a few: every visit uses natural-ingredient products and is covered by our insurance."
       />
 
-      <nav aria-label="Services on this page" className="sticky top-[84px] z-30 px-4 sm:px-6">
-        <ul className="glass mx-auto flex max-w-6xl gap-1 overflow-x-auto rounded-full p-1.5 [scrollbar-width:none]">
+      <nav aria-label="Services on this page" className="sticky top-16 z-30 px-4 sm:px-6">
+        <ul className="material mx-auto flex max-w-6xl gap-1 overflow-x-auto rounded-full p-1.5 shadow-[0_2px_12px_rgb(0_0_0/0.08)] [scrollbar-width:none]">
           {services.map((s) => (
             <li key={s.id} className="flex-none">
               <a href={`#${s.id}`} className="flex min-h-11 items-center rounded-full px-4 text-[14px] text-ink/75 hover:bg-white hover:text-ink">
@@ -37,7 +37,7 @@ export default function ServicesPage() {
 
       <div className="mx-auto max-w-6xl space-y-6 px-4 py-16 sm:px-6 sm:py-24">
         {services.map((s, i) => (
-          <section key={s.id} id={s.id} data-reveal aria-labelledby={`${s.id}-h`} className="scroll-mt-40 overflow-hidden rounded-[36px] bg-white">
+          <section key={s.id} id={s.id} data-reveal aria-labelledby={`${s.id}-h`} className="scroll-mt-40 overflow-hidden rounded-[32px] bg-frost">
             <div className={`grid lg:grid-cols-2 ${i % 2 ? "lg:[&>*:first-child]:order-2" : ""}`}>
               <div className="relative min-h-[280px] overflow-hidden">
                 <img
