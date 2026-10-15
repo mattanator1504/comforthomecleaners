@@ -19,8 +19,8 @@ export default function ServicesPage() {
     <>
       <PageHero
         crumbs={crumbs}
-        title="Cleaning services in Milwaukee, for homes and businesses."
-        intro="Comfort Home Cleaners is a local, owner-operated business. Pick one service or combine a few: every visit uses natural-ingredient products and is covered by our insurance."
+        title="Cleaning services in Milwaukee"
+        intro="For homes and businesses. Comfort Home Cleaners is a local, owner-operated business: pick one service or combine a few: every visit uses natural-ingredient products and is covered by our insurance."
       />
 
       <nav aria-label="Services on this page" className="sticky top-[84px] z-30 px-4 sm:px-6">
@@ -37,7 +37,7 @@ export default function ServicesPage() {
 
       <div className="mx-auto max-w-6xl space-y-6 px-4 py-16 sm:px-6 sm:py-24">
         {services.map((s, i) => (
-          <section key={s.id} id={s.id} data-reveal aria-labelledby={`${s.id}-h`} className="scroll-mt-40 overflow-hidden rounded-[36px] bg-white/75 ring-1 ring-ink/5">
+          <section key={s.id} id={s.id} data-reveal aria-labelledby={`${s.id}-h`} className="scroll-mt-40 overflow-hidden rounded-[36px] bg-white">
             <div className={`grid lg:grid-cols-2 ${i % 2 ? "lg:[&>*:first-child]:order-2" : ""}`}>
               <div className="relative min-h-[280px] overflow-hidden">
                 <img

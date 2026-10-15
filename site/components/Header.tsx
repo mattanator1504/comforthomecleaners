@@ -13,12 +13,12 @@ export default function Header() {
           </span>
         </Link>
 
-        <nav aria-label="Main" className="ml-auto hidden items-center md:flex">
+        <nav aria-label="Main" className="ml-auto hidden items-center lg:flex">
           {nav.map((n) => (
             <Link
               key={n.href}
               href={n.href}
-              className="rounded-full px-4 py-3 text-[14px] text-ink/80 transition-colors hover:bg-white/80 hover:text-ink"
+              className="rounded-full px-4 py-3 text-[15px] text-ink/80 transition-colors hover:bg-white/80 hover:text-ink"
             >
               {n.label}
             </Link>
@@ -27,7 +27,7 @@ export default function Header() {
 
         <a
           href={`tel:${site.phone}`}
-          className="ml-auto hidden min-h-12 items-center gap-2 rounded-full px-4 text-[14px] font-medium text-ink/80 hover:text-ink sm:flex md:ml-2"
+          className="ml-2 hidden min-h-12 items-center gap-2 rounded-full px-4 text-[15px] font-medium text-ink/80 hover:text-ink xl:flex"
         >
           <Phone className="h-4 w-4 text-aqua" />
           {site.phoneDisplay}
@@ -35,18 +35,18 @@ export default function Header() {
         <a
           href={`tel:${site.phone}`}
           aria-label={`Call ${site.phoneDisplay}`}
-          className="ml-auto flex h-12 w-12 items-center justify-center rounded-full bg-white/80 text-aqua sm:hidden"
+          className="press ml-auto flex h-12 w-12 items-center justify-center rounded-full bg-white/80 text-aqua lg:ml-2 xl:hidden"
         >
           <Phone className="h-5 w-5" />
         </a>
         <Link
           href="/contact"
-          className="flex min-h-12 items-center whitespace-nowrap rounded-full bg-ink px-4 text-[14px] font-medium text-white sm:px-5 transition-colors hover:bg-aqua-deep"
+          className="press flex min-h-12 items-center whitespace-nowrap rounded-full bg-ink px-4 text-[14px] font-medium text-white sm:px-5 transition-colors hover:bg-aqua-deep"
         >
           Get a quote
         </Link>
 
-        <details className="group relative md:hidden">
+        <details className="group relative lg:hidden">
           <summary
             aria-label="Menu"
             className="flex h-12 w-12 cursor-pointer list-none items-center justify-center rounded-full bg-white/80 [&::-webkit-details-marker]:hidden"
@@ -56,7 +56,7 @@ export default function Header() {
               <span className="absolute inset-x-0 bottom-0 h-0.5 rounded bg-ink transition-transform group-open:-translate-y-[5px] group-open:-rotate-45" />
             </span>
           </summary>
-          <nav aria-label="Mobile" className="glass absolute right-0 top-14 flex w-56 flex-col rounded-3xl p-2">
+          <nav aria-label="Mobile" className="menu-pop glass absolute right-0 top-14 flex w-56 flex-col rounded-3xl p-2">
             <Link href="/" className="rounded-2xl px-4 py-3 text-[15px] hover:bg-white">
               Home
             </Link>

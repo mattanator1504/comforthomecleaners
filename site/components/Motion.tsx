@@ -6,7 +6,6 @@ import { useEffect } from "react";
 //  - [data-reveal] elements rise, fade and un-blur as they enter the viewport
 //    (children of [data-stagger] cascade one after another)
 //  - [data-count] numbers count up once when seen
-//  - [data-spotlight] cards get a light that follows the cursor
 //  - <html data-scrolled> once the page moves, so the header can tighten
 // Nothing is hidden until this runs, so the page reads fine without JS.
 export default function Motion() {
@@ -18,13 +17,11 @@ export default function Motion() {
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
 
-    if (reduce) return () => window.removeEventListener("scroll", onScroll);
-
     document.querySelectorAll<HTMLElement>("[data-stagger]").forEach((group) => {
       Array.from(group.children).forEach((child, i) => {
         const el = child as HTMLElement;
         el.setAttribute("data-reveal", "");
-        el.style.setProperty("--reveal-delay", `${Math.min(i, 8) * 90}ms`);
+        el.style.setProperty("--reveal-delay", reduce ? "0ms" : `${Math.min(i, 8) * 70}ms`);
       });
     });
 
@@ -52,6 +49,7 @@ export default function Motion() {
         if (!e.isIntersecting) return;
         const el = e.target as HTMLElement;
         counter.unobserve(el);
+        if (reduce) return;
         const end = Number(el.dataset.count);
         const suffix = el.dataset.suffix ?? "";
         const t0 = performance.now();
@@ -65,18 +63,8 @@ export default function Motion() {
     });
     document.querySelectorAll<HTMLElement>("[data-count]").forEach((el) => counter.observe(el));
 
-    const onMove = (ev: PointerEvent) => {
-      const card = (ev.target as HTMLElement).closest<HTMLElement>("[data-spotlight]");
-      if (!card) return;
-      const r = card.getBoundingClientRect();
-      card.style.setProperty("--mx", `${ev.clientX - r.left}px`);
-      card.style.setProperty("--my", `${ev.clientY - r.top}px`);
-    };
-    document.addEventListener("pointermove", onMove, { passive: true });
-
     return () => {
       window.removeEventListener("scroll", onScroll);
-      document.removeEventListener("pointermove", onMove);
       reveal.disconnect();
       counter.disconnect();
     };

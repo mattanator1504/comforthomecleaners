@@ -11,7 +11,7 @@ export default function NotFound() {
     <section className="relative overflow-hidden px-4 py-28 text-center sm:px-6">
       <div className="aurora pointer-events-none absolute inset-0" />
       <div className="relative mx-auto max-w-xl">
-        <p className="font-mono text-[13px] uppercase tracking-[0.2em] text-aqua">Error 404</p>
+        <p className="text-[14px] font-medium text-aqua">Error 404</p>
         <h1 className="mt-4 text-5xl font-semibold tracking-[-0.045em] sm:text-6xl">We cleaned so well this page vanished.</h1>
         <p className="mt-5 text-[18px] text-slate">Try one of these instead.</p>
         <div className="mt-8 flex flex-wrap justify-center gap-3">

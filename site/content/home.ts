@@ -1,9 +1,8 @@
 // Home page copy. Facts come from lib/site.ts and the business's own site.
 
 export const hero = {
-  pill: "100% recommend · 10 Facebook reviews",
-  h1: "House cleaning in Milwaukee, down to the last detail.",
-  sub: "An owner-operated cleaning crew that treats your home like our own. Natural-ingredient products, insured work, and updates from first call to finished job.",
+    h1: "House cleaning in Milwaukee",
+  sub: "Down to the last detail. An owner-operated crew that treats your home like our own, with natural-ingredient products, insured work and updates until the job is done.",
 };
 
 export const rooms = [

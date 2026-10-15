@@ -22,20 +22,19 @@ export default function ContactPage() {
     <>
       <section className="relative overflow-hidden px-4 pb-24 pt-14 sm:px-6 sm:pt-20">
         <div className="aurora pointer-events-none absolute inset-0" />
-        <div className="grid-lines pointer-events-none absolute inset-0" />
-        <div className="relative mx-auto grid max-w-6xl gap-12 lg:grid-cols-[1fr_1.15fr]">
-          <div>
+                <div className="relative mx-auto grid max-w-6xl gap-12 lg:grid-cols-[1fr_1.15fr]">
+          <div className="enter">
             <Breadcrumbs items={crumbs} />
-            <h1 className="mt-6 text-balance text-[44px] font-semibold leading-[0.98] tracking-[-0.045em] sm:text-6xl">
-              Get a cleaning quote in Milwaukee.
+            <h1 className="mt-6 text-balance text-[52px] font-semibold leading-[0.92] tracking-[-0.05em] sm:text-7xl lg:text-[80px]">
+              Get a cleaning quote
             </h1>
             <p className="mt-6 max-w-md text-[18px] leading-relaxed text-slate">
-              Email or call for our current openings, or send the form and we&apos;ll quote your first appointment. We work {site.hours}.
+              Milwaukee homes and businesses: email or call for our current openings, or send the form and we&apos;ll quote your first appointment. We work {site.hours}.
             </p>
             <h2 id="reach-us" className="sr-only">
               Other ways to reach us
             </h2>
-            <ul className="mt-10 space-y-3">
+            <ul data-stagger className="mt-10 space-y-3">
               {channels.map((c) => (
                 <li key={c.k}>
                   <a
@@ -45,15 +44,18 @@ export default function ContactPage() {
                   >
                     <span className="flex h-10 w-10 flex-none items-center justify-center rounded-full bg-ink text-glow">{c.icon}</span>
                     <span className="min-w-0">
-                      <span className="block font-mono text-[11px] uppercase tracking-[0.16em] text-slate">{c.k}</span>
+                      <span className="block text-[15px] text-slate">{c.k}</span>
                       <span className="block truncate text-[17px] font-medium">{c.v}</span>
                     </span>
                   </a>
                 </li>
               ))}
             </ul>
+            <div className="mt-8 hidden overflow-hidden rounded-[28px] lg:block">
+              <img src="/images/kitchen.webp" width={1600} height={959} alt="Bright white kitchen with a marble island" className="aspect-[16/10] w-full object-cover" />
+            </div>
           </div>
-          <div className="glass rounded-[32px] p-5 sm:p-9">
+          <div className="enter glass rounded-[32px] p-5 sm:p-9">
             <h2 id="quote-form" className="mb-6 text-2xl font-semibold tracking-[-0.025em]">
               Quote for your first appointment
             </h2>

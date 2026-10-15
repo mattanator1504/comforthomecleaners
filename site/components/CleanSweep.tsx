@@ -20,7 +20,7 @@ export default function CleanSweep({
   const p = pos ?? 62;
 
   return (
-    <div className="relative aspect-[4/5] overflow-hidden rounded-[28px] sm:aspect-[1387/1016] sm:rounded-[40px]">
+    <div className="sweep relative aspect-[4/5] overflow-hidden rounded-[28px] sm:aspect-[1387/1016] sm:rounded-[40px] lg:aspect-auto lg:h-[min(78vh,780px)]">
       {/* Before: the same room, tired and dim */}
       <img
         src={src}
@@ -29,7 +29,7 @@ export default function CleanSweep({
         alt=""
         aria-hidden="true"
         fetchPriority="high"
-        className="absolute inset-0 h-full w-full object-cover"
+        className="absolute inset-0 h-full w-full object-cover object-[64%_50%]"
         style={{ filter: "sepia(0.45) saturate(0.55) brightness(0.74) contrast(0.88) blur(0.6px)" }}
       />
       <div
@@ -49,7 +49,7 @@ export default function CleanSweep({
           height={height}
           alt={alt}
           fetchPriority="high"
-          className="h-full w-full object-cover"
+          className="h-full w-full object-cover object-[64%_50%]"
           style={{ filter: "saturate(1.06) brightness(1.04)" }}
         />
       </div>
@@ -64,10 +64,10 @@ export default function CleanSweep({
         </div>
       </div>
 
-      <span className="glass pointer-events-none absolute left-4 top-4 rounded-full px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.16em] text-ink sm:left-6 sm:top-6">
+      <span className="glass pointer-events-none absolute left-4 top-4 rounded-full px-3 py-1.5 text-[14px] font-medium text-ink sm:left-6 sm:top-6">
         Comfort clean
       </span>
-      <span className="glass-dark pointer-events-none absolute right-4 top-4 rounded-full px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.16em] text-white sm:right-6 sm:top-6">
+      <span className="glass-dark pointer-events-none absolute right-4 top-4 rounded-full px-3 py-1.5 text-[14px] font-medium text-white sm:right-6 sm:top-6">
         Lived-in
       </span>
 

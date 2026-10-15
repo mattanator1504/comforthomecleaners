@@ -8,9 +8,9 @@ import QuoteForm from "./QuoteForm";
 
 export function Faq({ items = faq }: { items?: typeof faq }) {
   return (
-    <div data-reveal className="divide-y divide-ink/10 overflow-hidden rounded-[28px] border border-ink/10 bg-white/70">
+    <div data-reveal className="grid gap-2">
       {items.map((f) => (
-        <details key={f.q} className="group px-6 sm:px-8">
+        <details key={f.q} className="group rounded-[22px] bg-white px-6 sm:px-8">
           <summary className="flex min-h-16 cursor-pointer list-none items-center justify-between gap-6 py-5 text-[17px] font-medium text-ink [&::-webkit-details-marker]:hidden">
             <h3 className="text-[17px] font-medium">{f.q}</h3>
             <span className="relative h-4 w-4 flex-none" aria-hidden="true">
@@ -80,7 +80,7 @@ export function QuoteBlock({ id = "quote", heading = "Get a quote for your first
 
 export function Breadcrumbs({ items }: { items: { name: string; path: string }[] }) {
   return (
-    <nav aria-label="Breadcrumb" className="font-mono text-[12px] uppercase tracking-[0.14em] text-slate">
+    <nav aria-label="Breadcrumb" className="text-[14px] font-medium text-slate">
       <ol className="flex flex-wrap items-center gap-2">
         <li>
           <Link href="/" className="hover:text-ink">
@@ -98,16 +98,53 @@ export function Breadcrumbs({ items }: { items: { name: string; path: string }[]
   );
 }
 
-export function PageHero({ crumbs, title, intro }: { crumbs: { name: string; path: string }[]; title: string; intro: string }) {
+type Img = { src: string; w: number; h: number; alt: string };
+
+export function PageHero({ crumbs, title, intro, image }: { crumbs: { name: string; path: string }[]; title: string; intro: string; image?: Img }) {
   return (
-    <section className="relative overflow-hidden px-4 pb-14 pt-14 sm:px-6 sm:pb-20 sm:pt-20">
+    <section className="relative overflow-hidden px-4 pb-14 pt-14 sm:px-6 sm:pb-20 sm:pt-16">
       <div className="aurora pointer-events-none absolute inset-0" />
-      <div className="grid-lines pointer-events-none absolute inset-0" />
-      <div className="relative mx-auto max-w-6xl">
-        <Breadcrumbs items={crumbs} />
-        <h1 className="mt-6 max-w-4xl text-balance text-[44px] font-semibold leading-[0.98] tracking-[-0.045em] sm:text-7xl">{title}</h1>
-        <p className="mt-6 max-w-2xl text-[18px] leading-relaxed text-slate sm:text-[20px]">{intro}</p>
+      <div className={`relative mx-auto max-w-6xl ${image ? "grid items-end gap-10 lg:grid-cols-12" : ""}`}>
+        <div className={`enter ${image ? "lg:col-span-7" : ""}`}>
+          <Breadcrumbs items={crumbs} />
+          <h1 className="mt-6 max-w-4xl text-balance text-[44px] font-semibold leading-[0.95] tracking-[-0.045em] sm:text-7xl">{title}</h1>
+          <p className="mt-6 max-w-2xl text-[19px] leading-relaxed text-ink sm:text-[20px]">{intro}</p>
+        </div>
+        {image && (
+          <div className="hero-frame overflow-hidden rounded-[32px] lg:col-span-5">
+            <img src={image.src} width={image.w} height={image.h} alt={image.alt} fetchPriority="high" className="aspect-[4/3] h-full w-full object-cover lg:aspect-[4/5]" />
+          </div>
+        )}
       </div>
     </section>
   );
 }
+
+export function PhotoBand({ heading, id, photos }: { heading: string; id: string; photos: Img[] }) {
+  return (
+    <section aria-labelledby={id} className="px-4 py-20 sm:px-6">
+      <div className="mx-auto max-w-6xl">
+        <h2 id={id} data-reveal className="max-w-2xl text-balance text-4xl font-semibold leading-[1.02] tracking-[-0.035em] sm:text-5xl">
+          {heading}
+        </h2>
+        <div data-stagger className="mt-10 grid gap-4 sm:grid-cols-[1.4fr_1fr_1fr]">
+          {photos.map((p, i) => (
+            <div key={p.src} className={`overflow-hidden rounded-[28px] ${i === 0 ? "sm:row-span-2" : ""}`}>
+              <img src={p.src} width={p.w} height={p.h} alt={p.alt} loading="lazy" className={`parallax-img h-full w-full object-cover ${i === 0 ? "aspect-[4/5]" : "aspect-[4/3]"}`} />
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export const photos = {
+  kitchen: { src: "/images/kitchen.webp", w: 1600, h: 959, alt: "Bright white kitchen with a marble island" },
+  bath: { src: "/images/bath.webp", w: 1400, h: 2114, alt: "All-white bathroom with a clean tub and chrome fixtures" },
+  rug: { src: "/images/rug.webp", w: 1600, h: 900, alt: "Living room with a soft area rug and upholstered sofa" },
+  living: { src: "/images/living.webp", w: 1600, h: 1067, alt: "Bright living room with two grey sofas and clean floors" },
+  room: { src: "/images/room.webp", w: 1360, h: 996, alt: "Living room with a round mirror and tidy furniture" },
+  office: { src: "/images/office.webp", w: 1600, h: 1068, alt: "Clean office hallway with glass-panel doors" },
+  fridge: { src: "/images/fridge.webp", w: 1600, h: 1063, alt: "Stainless steel refrigerator in a bright kitchen" },
+};

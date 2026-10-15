@@ -25,7 +25,7 @@ export default function RoomScanner() {
         ))}
         <div className="relative aspect-[4/3] lg:aspect-auto lg:h-full" />
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-night/60 to-transparent" />
-        <p className="glass-dark absolute bottom-4 left-4 rounded-full px-4 py-2 font-mono text-[12px] uppercase tracking-[0.14em] text-white">
+        <p className="glass-dark absolute bottom-4 left-4 rounded-full px-4 py-2 text-[14px] font-medium text-white">
           {room.items.length} checkpoints · {room.label}
         </p>
       </div>
@@ -41,7 +41,7 @@ export default function RoomScanner() {
               aria-controls={`panel-${r.id}`}
               onClick={() => setActive(i)}
               className={`min-h-11 flex-1 rounded-full px-3 text-[14px] font-medium transition ${
-                i === active ? "bg-white text-ink shadow-sm" : "text-ink/60 hover:text-ink"
+                i === active ? "bg-white text-ink" : "text-ink/60 hover:text-ink"
               }`}
             >
               {r.label}
@@ -52,7 +52,7 @@ export default function RoomScanner() {
         {rooms.map((r, i) => (
           <div key={r.id} role="tabpanel" id={`panel-${r.id}`} aria-labelledby={`tab-${r.id}`} hidden={i !== active} className="mt-6">
             <p className="text-[15px] leading-relaxed text-slate">{r.intro}</p>
-            <ul className="mt-5 grid gap-2.5">
+            <ul key={active} className="settle mt-5 grid gap-2.5">
               {r.items.map((it) => (
                 <li key={it} className="flex items-start gap-3 rounded-2xl bg-white/70 px-4 py-3 text-[15px] text-ink">
                   <span className="mt-0.5 flex h-5 w-5 flex-none items-center justify-center rounded-full bg-aqua text-white">

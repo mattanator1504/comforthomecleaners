@@ -1,17 +1,22 @@
 @import "tailwindcss";
 
+/* Motion tokens (improve-animations / Emil Kowalski values) */
+:root {
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+}
+
 @theme inline {
   --color-frost: #f3f6f9;
   --color-mist: #e6edf3;
   --color-ink: #0a1626;
-  --color-slate: #475569;
+  --color-slate: #33445a;
   --color-aqua: #0a7480;
   --color-aqua-deep: #075a63;
   --color-glow: #7fe7da;
   --color-lilac: #bcc8ff;
   --color-night: #07111d;
   --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
 }
 
 html {
@@ -45,28 +50,16 @@ body {
     radial-gradient(40% 40% at 60% 60%, rgb(255 255 255 / 0.9), transparent 70%);
 }
 
-/* Fine engineering grid, faded at the edges. */
-.grid-lines {
-  background-image:
-    linear-gradient(to right, rgb(10 22 38 / 0.05) 1px, transparent 1px),
-    linear-gradient(to bottom, rgb(10 22 38 / 0.05) 1px, transparent 1px);
-  background-size: 56px 56px;
-  mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, #000 30%, transparent 75%);
-}
-
 .glass {
   background: rgb(255 255 255 / 0.62);
   backdrop-filter: blur(18px) saturate(1.6);
   -webkit-backdrop-filter: blur(18px) saturate(1.6);
-  border: 1px solid rgb(255 255 255 / 0.7);
-  box-shadow: 0 1px 0 rgb(255 255 255 / 0.8) inset, 0 12px 40px -16px rgb(10 22 38 / 0.25);
 }
 
 .glass-dark {
   background: rgb(7 17 29 / 0.55);
   backdrop-filter: blur(16px) saturate(1.4);
   -webkit-backdrop-filter: blur(16px) saturate(1.4);
-  border: 1px solid rgb(255 255 255 / 0.12);
 }
 
 .text-balance {
@@ -75,17 +68,16 @@ body {
 
 /* The sweep line in the hero before/after */
 .sweep-line {
-  background: linear-gradient(to bottom, transparent, #fff 15%, #fff 85%, transparent);
-  box-shadow: 0 0 24px 6px rgb(127 231 218 / 0.75), 0 0 2px 1px #fff;
+  background: #fff;
 }
 
 .sweep-clip {
   clip-path: inset(0 38% 0 0);
-  animation: sweep-clip 2.4s cubic-bezier(0.22, 1, 0.36, 1) 0.4s both;
+  animation: sweep-clip 2.4s var(--ease-out) 0.4s both;
 }
 .sweep-beam {
   left: 62%;
-  animation: sweep-beam 2.4s cubic-bezier(0.22, 1, 0.36, 1) 0.4s both;
+  animation: sweep-beam 2.4s var(--ease-out) 0.4s both;
 }
 @keyframes sweep-clip {
   from { clip-path: inset(0 100% 0 0); }
@@ -114,10 +106,15 @@ body {
 /* Scroll reveals (set up by components/Motion.tsx) */
 [data-reveal] {
   transition:
-    opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0ms),
-    transform 0.9s cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0ms),
-    filter 0.9s cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0ms);
+    opacity 0.9s var(--ease-out) var(--reveal-delay, 0ms),
+    transform 0.9s var(--ease-out) var(--reveal-delay, 0ms),
+    filter 0.9s var(--ease-out) var(--reveal-delay, 0ms);
 }
+@media (prefers-reduced-motion: reduce) {
+  [data-motion] [data-reveal][data-hidden] { transform: none !important; filter: none !important; }
+  details[open] > :not(summary), .settle > *, .menu-pop { animation-name: fade-only; }
+}
+@keyframes fade-only { from { opacity: 0; } }
 [data-motion] [data-reveal][data-hidden] {
   opacity: 0;
   transform: translateY(36px) scale(0.985);
@@ -125,29 +122,58 @@ body {
   transition-duration: 0s;
 }
 
-/* Cursor spotlight on cards */
+/* Cards lift a little under the pointer */
 [data-spotlight] {
-  position: relative;
-  isolation: isolate;
-  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.5s;
+  transition: transform 0.5s var(--ease-out);
 }
-[data-spotlight]::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  border-radius: inherit;
-  pointer-events: none;
-  background: radial-gradient(380px circle at var(--mx, -999px) var(--my, -999px), rgb(127 231 218 / 0.22), transparent 45%);
-  opacity: 0;
-  transition: opacity 0.35s;
+@media (hover: hover) and (pointer: fine) {
+  [data-spotlight]:hover {
+    transform: translateY(-4px);
+  }
 }
-[data-spotlight]:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 30px 60px -30px rgb(7 17 29 / 0.45);
+
+/* Press feedback, on pointer-down (apple-design) */
+.press,
+main a.rounded-full,
+main button,
+.site-header a {
+  transition: transform 160ms var(--ease-out), background-color 0.2s ease, color 0.2s ease;
 }
-[data-spotlight]:hover::after {
-  opacity: 1;
+.press:active,
+main a.rounded-full:active,
+main button:active,
+.site-header a:active {
+  transform: scale(0.97);
+}
+
+/* Keyboard users can see where the before/after slider is */
+.sweep:has(input:focus-visible) {
+  outline: 3px solid var(--color-aqua);
+  outline-offset: 4px;
+}
+
+/* FAQ answers and room checklists enter instead of teleporting */
+details[open] > :not(summary) {
+  animation: settle 260ms var(--ease-out);
+}
+.settle > * {
+  animation: settle 300ms var(--ease-out) both;
+}
+.settle > :nth-child(2) { animation-delay: 40ms; }
+.settle > :nth-child(3) { animation-delay: 80ms; }
+.settle > :nth-child(4) { animation-delay: 120ms; }
+.settle > :nth-child(5) { animation-delay: 160ms; }
+@keyframes settle {
+  from { opacity: 0; transform: translateY(8px); }
+}
+
+/* Mobile menu grows out of its button (top-right), not from nowhere */
+.menu-pop {
+  transform-origin: top right;
+  animation: menu-pop 200ms var(--ease-out);
+}
+@keyframes menu-pop {
+  from { opacity: 0; transform: scale(0.95) translateY(-4px); }
 }
 
 /* Header tightens once the page scrolls */
@@ -160,9 +186,6 @@ body {
 }
 
 /* Service ticker */
-.ticker {
-  mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
-}
 .ticker-track {
   animation: ticker 38s linear infinite;
 }
@@ -214,4 +237,26 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .ticker-track, .hero-copy, .hero-frame, .drift-a, .drift-b, .parallax-img { animation: none !important; }
   [data-spotlight], [data-spotlight]:hover { transform: none; }
+}
+
+/* Visitors who ask for less transparency get solid surfaces (apple-design) */
+@media (prefers-reduced-transparency: reduce) {
+  .glass { background: #fff; backdrop-filter: none; -webkit-backdrop-filter: none; }
+  .glass-dark { background: var(--color-night); backdrop-filter: none; -webkit-backdrop-filter: none; }
+}
+
+/* First-screen entrance: heading, then text, then actions (60-90ms apart).
+   Pure CSS, so the content is there even if the script never runs. */
+.enter > * {
+  animation: enter 0.9s var(--ease-out) both;
+}
+.enter > :nth-child(2) { animation-delay: 80ms; }
+.enter > :nth-child(3) { animation-delay: 160ms; }
+.enter > :nth-child(4) { animation-delay: 240ms; }
+.enter > :nth-child(5) { animation-delay: 320ms; }
+@keyframes enter {
+  from { opacity: 0; transform: translateY(24px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .enter > * { animation: none; }
 }

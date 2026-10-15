@@ -6,7 +6,6 @@ import { Facebook, Mark } from "./Icons";
 export default function Footer() {
   return (
     <footer className="relative overflow-hidden bg-night text-white">
-      <div className="pointer-events-none absolute -top-40 left-1/2 h-80 w-[60rem] -translate-x-1/2 rounded-full bg-aqua/25 blur-3xl" />
       <div className="relative mx-auto grid max-w-6xl gap-12 px-5 py-16 sm:px-8 md:grid-cols-[1.3fr_1fr_1fr]">
         <div>
           <Link href="/" className="inline-flex items-center gap-3" aria-label={`${site.name} home`}>
@@ -32,7 +31,7 @@ export default function Footer() {
         </div>
 
         <div>
-          <h2 id="footer-services" className="font-mono text-xs uppercase tracking-[0.18em] text-white/50">
+          <h2 id="footer-services" className="text-[14px] font-medium text-white/70">
             Services
           </h2>
           <ul className="mt-4 space-y-2 text-[15px]">
@@ -47,7 +46,7 @@ export default function Footer() {
         </div>
 
         <div>
-          <h2 id="footer-company" className="font-mono text-xs uppercase tracking-[0.18em] text-white/50">
+          <h2 id="footer-company" className="text-[14px] font-medium text-white/70">
             Company
           </h2>
           <ul className="mt-4 space-y-2 text-[15px]">
@@ -73,15 +72,18 @@ export default function Footer() {
             href={site.social.facebook}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-6 inline-flex min-h-12 items-center gap-2 rounded-full border border-white/15 px-4 text-[14px] text-white/85 hover:border-white/40"
+            className="mt-6 inline-flex min-h-12 items-center gap-2 rounded-full bg-white/10 px-4 text-[14px] text-white/85 hover:bg-white/20"
           >
             <Facebook className="h-4 w-4" />
             Follow us on Facebook
           </a>
         </div>
       </div>
-      <div className="relative border-t border-white/10">
-        <p className="mx-auto max-w-6xl px-5 py-6 text-[13px] text-white/45 sm:px-8">
+      <p aria-hidden="true" className="relative select-none overflow-hidden whitespace-nowrap px-3 text-center text-[13.5vw] font-semibold leading-[0.8] tracking-[-0.06em] text-white/[0.07]">
+        Comfort Home
+      </p>
+      <div className="relative bg-black/30">
+        <p className="mx-auto max-w-6xl px-5 py-6 text-[14px] text-white/60 sm:px-8">
           © {new Date().getFullYear()} {site.legalName}. All rights reserved.
         </p>
       </div>

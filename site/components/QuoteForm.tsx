@@ -19,7 +19,7 @@ function Stepper({ label, name, value, onChange }: { label: string; name: string
         >
           −
         </button>
-        <output name={name} aria-live="polite" className="w-6 text-center font-mono text-[17px] tabular-nums">
+        <output name={name} aria-live="polite" className="w-6 text-center text-[17px] tabular-nums">
           {value}
         </output>
         <button
@@ -90,25 +90,25 @@ export default function QuoteForm() {
   return (
     <form onSubmit={onSubmit} className="grid gap-4">
       <div className="grid gap-4 sm:grid-cols-2">
-        <label className="block text-[14px] font-medium text-ink">
+        <label className="block text-[16px] font-medium text-ink">
           Name
           <input name="name" autoComplete="name" className={field} placeholder="Your name" />
         </label>
-        <label className="block text-[14px] font-medium text-ink">
+        <label className="block text-[16px] font-medium text-ink">
           Phone <span className="text-aqua">*</span>
           <input name="phone" type="tel" required autoComplete="tel" className={field} placeholder="(414) 000-0000" />
         </label>
       </div>
-      <label className="block text-[14px] font-medium text-ink">
+      <label className="block text-[16px] font-medium text-ink">
         Email <span className="text-aqua">*</span>
         <input name="email" type="email" required autoComplete="email" className={field} placeholder="you@email.com" />
       </label>
-      <label className="block text-[14px] font-medium text-ink">
+      <label className="block text-[16px] font-medium text-ink">
         Address <span className="text-aqua">*</span>
         <input name="address" required autoComplete="street-address" className={field} placeholder="Street, city, ZIP" />
       </label>
       <fieldset className="grid gap-2 sm:grid-cols-2">
-        <legend className="mb-1.5 text-[14px] font-medium text-ink">
+        <legend className="mb-1.5 text-[16px] font-medium text-ink">
           Home size <span className="text-aqua">*</span>
         </legend>
         <Stepper label="Bedrooms" name="bedrooms" value={beds} onChange={setBeds} />
@@ -119,7 +119,7 @@ export default function QuoteForm() {
       <button
         type="submit"
         disabled={state === "sending"}
-        className="mt-2 flex min-h-14 items-center justify-center rounded-full bg-aqua px-8 text-[16px] font-medium text-white shadow-[0_10px_30px_-10px_rgb(10_116_128/0.8)] transition hover:bg-aqua-deep disabled:opacity-60"
+        className="press mt-2 flex min-h-14 items-center justify-center rounded-full bg-aqua-deep px-8 text-[17px] font-medium text-white transition-colors hover:bg-ink disabled:opacity-60"
       >
         {state === "sending" ? "Sending…" : "Send my quote request"}
       </button>
@@ -129,7 +129,7 @@ export default function QuoteForm() {
           <a className="underline" href={`mailto:${site.email}`}>{site.email}</a>.
         </p>
       )}
-      <p className="text-[13px] text-slate">
+      <p className="text-[14px] text-ink/80">
         We reply with a quote for your first appointment. Prefer to talk? Call{" "}
         <a href={`tel:${site.phone}`} className="font-medium text-aqua underline-offset-2 hover:underline">
           {site.phoneDisplay}

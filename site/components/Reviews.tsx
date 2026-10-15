@@ -15,14 +15,13 @@ export function ReviewCard({ r, large = false }: { r: Review; large?: boolean })
   return (
     <figure data-spotlight className={`glass break-inside-avoid rounded-[28px] ${large ? "p-8 sm:p-10" : "p-6 sm:p-7"}`}>
       <div className="flex items-center justify-between">
-        <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-aqua-deep">{r.topic}</span>
-        <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-slate">Recommends</span>
+        <span className="text-[14px] font-medium text-aqua-deep">{r.topic}</span>
       </div>
       <blockquote className={`mt-4 text-ink ${large ? "text-[22px] leading-snug tracking-[-0.015em] sm:text-[28px]" : "text-[17px] leading-relaxed"}`}>
         &ldquo;{r.quote}&rdquo;
       </blockquote>
       <figcaption className="mt-6 flex items-center gap-3">
-        <span className="flex h-10 w-10 flex-none items-center justify-center rounded-full bg-gradient-to-br from-glow to-aqua font-mono text-[13px] text-night">
+        <span className="flex h-10 w-10 flex-none items-center justify-center rounded-full bg-aqua text-[14px] font-medium text-white">
           {initials(r.name)}
         </span>
         <span>
@@ -42,8 +41,7 @@ export default function ReviewWall({ limit }: { limit?: number }) {
     <div className="grid gap-4 lg:grid-cols-[0.9fr_2fr]">
       <div data-stagger className="flex flex-col gap-4">
         <div className="relative overflow-hidden rounded-[28px] bg-night p-8 text-white">
-          <div className="pointer-events-none absolute -right-16 -top-16 h-56 w-56 rounded-full bg-aqua/40 blur-3xl" />
-          <p className="relative text-[88px] font-semibold leading-none tracking-[-0.06em] text-glow" data-count="100" data-suffix="%">
+                    <p className="relative text-[88px] font-semibold leading-none tracking-[-0.06em] text-glow" data-count="100" data-suffix="%">
             {reviewStats.recommend}
           </p>
           <p className="relative mt-3 text-[17px] text-white/80">
