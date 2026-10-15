@@ -1,0 +1,110 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-frost: #f3f6f9;
+  --color-mist: #e6edf3;
+  --color-ink: #0a1626;
+  --color-slate: #475569;
+  --color-aqua: #0a7480;
+  --color-aqua-deep: #075a63;
+  --color-glow: #7fe7da;
+  --color-lilac: #bcc8ff;
+  --color-night: #07111d;
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-frost);
+  color: var(--color-ink);
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--color-glow);
+  color: var(--color-ink);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-aqua);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+/* Soft aurora wash behind the hero: the "clean air" of the brand. */
+.aurora {
+  background:
+    radial-gradient(60% 50% at 18% 12%, rgb(127 231 218 / 0.45), transparent 70%),
+    radial-gradient(50% 45% at 85% 8%, rgb(188 200 255 / 0.55), transparent 70%),
+    radial-gradient(40% 40% at 60% 60%, rgb(255 255 255 / 0.9), transparent 70%);
+}
+
+/* Fine engineering grid, faded at the edges. */
+.grid-lines {
+  background-image:
+    linear-gradient(to right, rgb(10 22 38 / 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(10 22 38 / 0.05) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, #000 30%, transparent 75%);
+}
+
+.glass {
+  background: rgb(255 255 255 / 0.62);
+  backdrop-filter: blur(18px) saturate(1.6);
+  -webkit-backdrop-filter: blur(18px) saturate(1.6);
+  border: 1px solid rgb(255 255 255 / 0.7);
+  box-shadow: 0 1px 0 rgb(255 255 255 / 0.8) inset, 0 12px 40px -16px rgb(10 22 38 / 0.25);
+}
+
+.glass-dark {
+  background: rgb(7 17 29 / 0.55);
+  backdrop-filter: blur(16px) saturate(1.4);
+  -webkit-backdrop-filter: blur(16px) saturate(1.4);
+  border: 1px solid rgb(255 255 255 / 0.12);
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+/* The sweep line in the hero before/after */
+.sweep-line {
+  background: linear-gradient(to bottom, transparent, #fff 15%, #fff 85%, transparent);
+  box-shadow: 0 0 24px 6px rgb(127 231 218 / 0.75), 0 0 2px 1px #fff;
+}
+
+.sweep-clip {
+  clip-path: inset(0 38% 0 0);
+  animation: sweep-clip 2.4s cubic-bezier(0.22, 1, 0.36, 1) 0.4s both;
+}
+.sweep-beam {
+  left: 62%;
+  animation: sweep-beam 2.4s cubic-bezier(0.22, 1, 0.36, 1) 0.4s both;
+}
+@keyframes sweep-clip {
+  from { clip-path: inset(0 100% 0 0); }
+  to { clip-path: inset(0 38% 0 0); }
+}
+@keyframes sweep-beam {
+  from { left: 0%; }
+  to { left: 62%; }
+}
+
+.sparkle {
+  animation: twinkle 2.6s ease-in-out infinite;
+}
+@keyframes twinkle {
+  0%, 100% { opacity: 0.35; transform: scale(0.85); }
+  50% { opacity: 1; transform: scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .sparkle, .sweep-clip, .sweep-beam { animation: none; }
+}
