@@ -11,7 +11,7 @@ SITE_TYPE: local-service (quick build)
 SITE_NAME: Comfort Home Cleaners
 SITE_URL: https://thehomecomfortcleaners.com
 MAIN_KEYWORD: house cleaning milwaukee
-LOCATION: Milwaukee, WI (inferred from the 414 number; confirm with owner)
+LOCATION: Milwaukee, WI (confirmed on Facebook page)
 PHONE: +1 414-275-7608
 EMAIL: mircale.booker@gmail.com
 LEAD_WEBHOOK:

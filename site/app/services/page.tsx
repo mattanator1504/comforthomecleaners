@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { breadcrumbSchema, pageMetadata, site } from "@/lib/site";
 import { services, extras } from "@/content/services";
+import { reviewFor } from "@/content/reviews";
 import JsonLd from "@/components/JsonLd";
 import { PageHero, QuoteBlock } from "@/components/Sections";
 import { Check } from "@/components/Icons";
@@ -67,6 +68,14 @@ export default function ServicesPage() {
                     </li>
                   ))}
                 </ul>
+                {reviewFor(s.id) && (
+                  <figure className="mt-8 rounded-2xl border-l-2 border-aqua bg-mist/60 px-5 py-4">
+                    <blockquote className="text-[15px] leading-relaxed text-ink">&ldquo;{reviewFor(s.id)!.quote}&rdquo;</blockquote>
+                    <figcaption className="mt-2 text-[13px] text-slate">
+                      {reviewFor(s.id)!.name}, <Link href="/reviews" className="text-aqua underline-offset-2 hover:underline">Facebook review</Link>
+                    </figcaption>
+                  </figure>
+                )}
                 <Link href="/contact" className="mt-8 inline-flex min-h-12 items-center rounded-full bg-ink px-6 text-[15px] font-medium text-white hover:bg-aqua-deep">
                   Get a quote for {s.name.toLowerCase()}
                 </Link>

@@ -4,6 +4,7 @@ import { hero, steps } from "@/content/home";
 import { services, extras } from "@/content/services";
 import CleanSweep from "@/components/CleanSweep";
 import RoomScanner from "@/components/RoomScanner";
+import ReviewWall from "@/components/Reviews";
 import JsonLd from "@/components/JsonLd";
 import { Faq, faqSchema, QuoteBlock } from "@/components/Sections";
 import { Chat, Leaf, Paw, Phone, Shield, Sparkle } from "@/components/Icons";
@@ -208,6 +209,26 @@ export default function Home() {
               ))}
             </tbody>
           </table>
+        </div>
+      </section>
+
+      {/* REVIEWS */}
+      <section aria-labelledby="reviews" className="px-4 pt-24 sm:px-6 sm:pt-32">
+        <div className="mx-auto max-w-6xl">
+          <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
+            <h2 id="reviews" className="max-w-2xl text-balance text-4xl font-semibold leading-[1.02] tracking-[-0.035em] sm:text-[56px]">
+              &ldquo;Cleaned my bathrooms like Mr. Clean.&rdquo;
+            </h2>
+            <p className="max-w-sm text-[17px] leading-relaxed text-slate">
+              Carpets that look new, wine and pet stains gone, couches brought back. Straight from our Facebook reviews.
+            </p>
+          </div>
+          <div className="mt-12">
+            <ReviewWall limit={5} />
+          </div>
+          <Link href="/reviews" className="mt-8 inline-flex min-h-12 items-center rounded-full bg-ink px-6 text-[15px] font-medium text-white hover:bg-aqua-deep">
+            See all client reviews
+          </Link>
         </div>
       </section>
 
